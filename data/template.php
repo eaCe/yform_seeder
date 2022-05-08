@@ -35,6 +35,14 @@ $tableName = '###tablename###';
 /** create a faker instance */
 //$faker = Faker\Factory::create();
 
+/** register BeMedia provider if needed */
+//$faker->addProvider(new \YformSeeder\Faker\BeMedia($faker));
+
+/**
+ * to get a random image name from the media pool use:
+ * $faker->beMedia(int $categoryId = null, string $type = 'image/jpeg')
+ */
+
 /** add values */
 
 //$sql = rex_sql::factory();
