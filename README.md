@@ -57,7 +57,7 @@ TextArea::create($tableName, 'text', 'Freitext');
 /** create a faker instance */
 $faker = Faker\Factory::create();
 
-/** register BeMedia provider if needed */
+/** register REDAXO provider if needed */
 //$faker->addProvider(new \YformSeeder\Faker\Redaxo($faker));
 
 /**
