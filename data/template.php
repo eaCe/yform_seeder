@@ -3,6 +3,7 @@
 use YformSeeder\Table;
 
 /** available value types */
+use YformSeeder\Value\BeMedia;
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
