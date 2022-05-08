@@ -1,0 +1,10 @@
+yform_seeder_title = YForm Seeder
+yform_seeder_settings = Einstellungen
+yform_seeder_save = speichern
+yform_seeder_create_template = Template erstellen
+yform_seeder_table_name = Tabellenname
+yform_seeder_table_notice = Ohne Prefix
+yform_seeder_table_name_exists = Der Tabellenname "{0}" existiert bereits
+yform_seeder_table_name_empty = Der Tabellenname darf nicht leer sein
+yform_seeder_template_created = Template erstellt: {0}
+yform_seeder_import_templates = Templates importieren

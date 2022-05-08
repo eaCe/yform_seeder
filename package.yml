@@ -1,0 +1,29 @@
+package: yform_seeder
+version: "0.0.1-dev"
+name: YForm Seeder
+author: eaCe
+supportpage: https://github.com/eace/yform_seeder
+
+requires:
+  redaxo: ^5.12.0
+  php:
+    version: '>=7.3'
+
+page:
+  title: translate:title
+  perm: admin
+  icon: rex-icon fa-space-shuttle
+  subpages:
+    settings: { title: translate:settings }
+
+installer_ignore:
+  - node_modules
+  - .git
+  - .gitignore
+  - .github
+  - package.json
+  - yarn.lock
+  - resources
+  - .editorconfig
+  - .eslintrc.js
+  - .stylelintrc.js
