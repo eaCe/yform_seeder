@@ -39,7 +39,7 @@ Table::create($tableName, 'Meine Demo Tabelle');
 
 Text::create($tableName, 'name', 'Name');
 Integer::create($tableName, 'count', 'Anzahl');
-TextArea::create($tableName, 'text', 'Freizext');
+TextArea::create($tableName, 'text', 'Freitext');
 
 
 /** create a faker instance */
