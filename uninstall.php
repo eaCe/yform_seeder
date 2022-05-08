@@ -1,3 +1,4 @@
 <?php
+/** @var \rex_addon $this */
 
-rex_sql_table::get(rex::getTable('activity_log'))->drop();
+rex_sql_table::get($this->getName())->drop();

@@ -92,12 +92,26 @@ class Utilities
     /**
      * import templates
      * @return void
+     * @throws \rex_sql_exception
      */
     public static function importTemplates(): void {
         $addon = self::getAddon();
         foreach (glob($addon->getDataPath() . '*.php') as $filePath) {
-            //TODO: check if already imported
-            include_once $filePath;
+            $name = str_replace([$addon->getDataPath(), '.php'], ['', ''], $filePath);
+
+            $sql = \rex_sql::factory();
+            $sql->setTable(\rex::getTable($addon->getName()));
+            $sql->setWhere('`file` = :name', ['name' => $name]);
+            $sql->select();
+
+            if(!$sql->getRows()) {
+                include_once $filePath;
+
+                $sql = \rex_sql::factory();
+                $sql->setTable(\rex::getTable($addon->getName()));
+                $sql->setValue('file', $name);
+                $sql->insert();
+            }
         }
     }
 }
