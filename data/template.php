@@ -5,6 +5,7 @@ use YformSeeder\Table;
 /** available value types */
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
+use YformSeeder\Value\Datestamp;
 use YformSeeder\Value\Email;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\Number;
