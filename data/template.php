@@ -15,6 +15,7 @@ use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Uuid;
 use YformSeeder\Value\BeUser;
 use YformSeeder\Value\Upload;
+use YformSeeder\Value\IP;
 
 $tableName = '###tablename###';
 
