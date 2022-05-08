@@ -14,6 +14,7 @@ use YformSeeder\Value\Number;
 use YformSeeder\Value\Text;
 use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Uuid;
+use YformSeeder\Value\BeTable;
 use YformSeeder\Value\BeUser;
 use YformSeeder\Value\Upload;
 use YformSeeder\Value\IP;
