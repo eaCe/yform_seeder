@@ -23,6 +23,7 @@ Die Templates werden im Data-Ordner des Addons erstellt und können dort angepas
 use YformSeeder\Table;
 
 /** available value types */
+use YformSeeder\Value\BeMedia;
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
