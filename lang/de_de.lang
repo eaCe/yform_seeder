@@ -8,3 +8,5 @@ yform_seeder_table_name_exists = Der Tabellenname "{0}" existiert bereits
 yform_seeder_table_name_empty = Der Tabellenname darf nicht leer sein
 yform_seeder_template_created = Template erstellt: {0}
 yform_seeder_import_templates = Templates importieren
+yform_seeder_imported_templates = Importierte Templates
+yform_seeder_not_imported_templates = Noch nicht importierte Templates

@@ -59,3 +59,52 @@ echo '
     <form action="' . rex_url::currentBackendPage() . '" method="post">
         ' . $content . '
     </form>';
+
+/** get already imported templates */
+$sql = rex_sql::factory();
+$sql->setTable(rex::getTable($this->getName()));
+$templatesQuery = $sql->select('file as file')->getArray();
+$importedTemplates = array_map(static function($template) {return $template['file'];}, $templatesQuery);
+$notImportedTemplates = [];
+
+foreach (glob($this->getDataPath() . '*.php') as $filePath) {
+    $name = str_replace([$this->getDataPath(), '.php'], ['', ''], $filePath);
+
+    if(in_array($name, $importedTemplates, true)) {
+        continue;
+    }
+
+    $notImportedTemplates[] = $name;
+}
+
+$infoContent = '<div class="row">';
+    $infoContent .= '<div class="col-lg-6">';
+    if ($importedTemplates) {
+        $infoContent .= '<table class="table table-striped">';
+        $infoContent .= '<thead><tr><th>' . $this->i18n('imported_templates') . '</th></th></thead>';
+        $infoContent .= '<tbody>';
+        foreach ($importedTemplates as $template) {
+            $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
+        }
+        $infoContent .= '</tbody></table>';
+    }
+    $infoContent .= '</div>';
+    $infoContent .= '<div class="col-lg-6">';
+    if ($notImportedTemplates) {
+        $infoContent .= '<table class="table table-striped">';
+        $infoContent .= '<thead><tr><th>' . $this->i18n('yform_seeder_not_imported_templates') . '</th></th></thead>';
+        $infoContent .= '<tbody>';
+        foreach ($notImportedTemplates as $template) {
+            $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
+        }
+        $infoContent .= '</tbody></table>';
+    }
+    $infoContent .= '</div>';
+$infoContent .= '</div>';
+
+$fragment = new rex_fragment();
+$fragment->setVar('class', 'info');
+$fragment->setVar('body', $infoContent, false);
+$content = $fragment->parse('core/page/section.php');
+
+echo $content;
