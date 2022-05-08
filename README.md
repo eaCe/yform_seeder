@@ -11,6 +11,12 @@ Die Templates werden im Data-Ordner des Addons erstellt und können dort angepas
 
 ---
 
+**TODO**
+
+- [ ] Erstellen von Values über Factory
+
+---
+
 **Beispiel Template:**
 
 ```php
@@ -19,12 +25,17 @@ use YformSeeder\Table;
 /** available value types */
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
+use YformSeeder\Value\Datestamp;
+use YformSeeder\Value\Time;
 use YformSeeder\Value\Email;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\Number;
 use YformSeeder\Value\Text;
 use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Uuid;
+use YformSeeder\Value\BeUser;
+use YformSeeder\Value\Upload;
+use YformSeeder\Value\IP;
 
 $tableName = 'rex_blubb';
 
