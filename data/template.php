@@ -11,6 +11,7 @@ use YformSeeder\Value\Number;
 use YformSeeder\Value\Text;
 use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Uuid;
+use YformSeeder\Value\BeUser;
 
 $tableName = '###tablename###';
 
