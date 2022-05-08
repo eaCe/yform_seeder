@@ -4,7 +4,7 @@ namespace YformSeeder\Faker;
 
 use Faker\Provider\Base;
 
-class BeMedia extends Base
+class Redaxo extends Base
 {
     /**
      * get a random image from the media pool
@@ -26,5 +26,21 @@ class BeMedia extends Base
         $sql->setQuery($query, $queryParams);
 
         return $sql->getValue('filename');
+    }
+
+    /**
+     * get a random article id
+     * @return string
+     * @throws \rex_sql_exception
+     */
+    public function beLink(): string {
+        $sql = \rex_sql::factory();
+        $query = 'SELECT `id` FROM ' . \rex::getTable('article');
+        $query .= ' WHERE `status` = 1';
+        $query .= ' ORDER BY RAND() LIMIT 1';
+        $sql->setQuery($query);
+
+        return $sql->getValue('id');
+
     }
 }

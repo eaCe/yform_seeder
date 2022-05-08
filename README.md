@@ -58,11 +58,16 @@ TextArea::create($tableName, 'text', 'Freitext');
 $faker = Faker\Factory::create();
 
 /** register BeMedia provider if needed */
-//$faker->addProvider(new \YformSeeder\Faker\BeMedia($faker));
+//$faker->addProvider(new \YformSeeder\Faker\Redaxo($faker));
 
 /**
  * to get a random image name from the media pool use:
  * $faker->beMedia(int $categoryId = null, string $type = 'image/jpeg')
+ */
+
+/**
+ * to get a random article ID use:
+ * $faker->beLink()
  */
 
 /** add values */
