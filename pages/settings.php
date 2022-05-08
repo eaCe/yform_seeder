@@ -102,9 +102,10 @@ $infoContent = '<div class="row">';
     $infoContent .= '</div>';
 $infoContent .= '</div>';
 
-$fragment = new rex_fragment();
-$fragment->setVar('class', 'info');
-$fragment->setVar('body', $infoContent, false);
-$content = $fragment->parse('core/page/section.php');
-
-echo $content;
+if($importedTemplates || $notImportedTemplates) {
+    $fragment = new rex_fragment();
+    $fragment->setVar('class', 'info');
+    $fragment->setVar('body', $infoContent, false);
+    $content = $fragment->parse('core/page/section.php');
+    echo $content;
+}
