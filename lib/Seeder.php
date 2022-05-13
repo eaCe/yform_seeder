@@ -11,6 +11,7 @@ use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
 use YformSeeder\Value\Email;
+use YformSeeder\Value\Html;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\IP;
 use YformSeeder\Value\Number;
@@ -76,6 +77,10 @@ class Seeder
      * @throws \rex_sql_exception
      */
     private function insertField(array $attributes): void {
+        if($attributes['db_type'] === 'none') {
+            return;
+        }
+
         $sql = \rex_sql::factory();
 
         $query = 'SHOW COLUMNS FROM ' . $this->name . ' LIKE "' . $attributes['name'] . '"';
@@ -397,6 +402,21 @@ class Seeder
      */
     public function uuid(string $name, string $label = '', array $attributes = []): Uuid {
         $value = new Uuid($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a html field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return Html
+     */
+    public function html(string $name, string $label = '', array $attributes = []): Html {
+        $value = new Html($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }

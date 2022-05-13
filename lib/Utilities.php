@@ -32,6 +32,15 @@ class Utilities
         return filter_var($string, FILTER_SANITIZE_STRING);
     }
 
+    /**
+     * sanitize the given html
+     * @param string $string
+     * @return string
+     */
+    public static function sanitizeHtml(string $string): string {
+        return \rex_string::sanitizeHtml($string);
+    }
+
     private static function getAddon() {
         return \rex_addon::get('yform_seeder');
     }
