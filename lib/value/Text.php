@@ -21,9 +21,6 @@ class Text extends Value
      * @throws \rex_exception
      */
     protected function createValueField(): void {
-        echo '<pre>';
-        var_dump("test2");
-        echo '</pre>';
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
         if(!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
