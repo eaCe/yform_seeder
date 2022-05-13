@@ -11,47 +11,57 @@ Die Templates werden im Data-Ordner des Addons erstellt und können dort angepas
 
 ---
 
-**TODO**
-
-- [ ] Erstellen von Values über Factory
-
----
-
 **Beispiel Template:**
 
 ```php
 use YformSeeder\Table;
+use YformSeeder\Seeder;
 
-/** available value types */
-use YformSeeder\Value\BeMedia;
-use YformSeeder\Value\Choice;
-use YformSeeder\Value\Date;
-use YformSeeder\Value\Datestamp;
-use YformSeeder\Value\Time;
-use YformSeeder\Value\Email;
-use YformSeeder\Value\Integer;
-use YformSeeder\Value\Number;
-use YformSeeder\Value\Text;
-use YformSeeder\Value\TextArea;
-use YformSeeder\Value\Uuid;
-use YformSeeder\Value\BeUser;
-use YformSeeder\Value\Upload;
-use YformSeeder\Value\IP;
+/**
+    available value types:
+    ---
+    $seeder->beLink('name', 'Name');
+    $seeder->beMedia('name', 'Name');
+    $seeder->beTable('name', 'Name');
+    $seeder->beUser('name', 'Name');
+    $seeder->choice('name', 'Name');
+    $seeder->date('name', 'Name');
+    $seeder->datestamp('name', 'Name');
+    $seeder->email('name', 'Name');
+    $seeder->integer('name', 'Name');
+    $seeder->ip('name', 'Name');
+    $seeder->number('name', 'Name');
+    $seeder->text('name', 'Name');
+    $seeder->textarea('name', 'Name');
+    $seeder->time('name', 'Name');
+    $seeder->upload('name', 'Name');
+    $seeder->uuid('name', 'Name');
+*/
 
 $tableName = 'rex_blubb';
+$tableLabel = 'Meine Demo Tabelle';
 
 /** create table */
 /** $tableName, $label/$name, $tableAttributes = [] */
 
-Table::create($tableName, 'Meine Demo Tabelle');
+Table::create($tableName, $tableLabel);
 
 
-/** create value fields */
-/** $tableName, $name, $label, $attributes = [] */
+/** create value factory */
+/** $tableName */
 
-Text::create($tableName, 'name', 'Name');
-Integer::create($tableName, 'count', 'Anzahl');
-TextArea::create($tableName, 'text', 'Freitext');
+$seeder = Seeder::factory($tableName);
+
+/** prepare values */
+/** $name, $label, $additionalAttributes = [] */
+
+$seeder->text('name', 'Name');
+$seeder->integer('count', 'Anzahl');
+$seeder->textarea('text', 'Freitext');
+
+/** create values */
+
+$seeder->create();
 
 
 /** create a faker instance */

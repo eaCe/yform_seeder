@@ -30,13 +30,13 @@ $tableLabel = '';
 /** create table */
 /** $tableName, $label/$name, $tableAttributes = [] */
 
-//Table::create($tableName, 'Label');
+//Table::create($tableName, $tableLabel);
 
 
 /** create value factory */
-/** $tableName, $tableLabel */
+/** $tableName */
 
-//$seeder = Seeder::factory($tableName, $tableLabel);
+//$seeder = Seeder::factory($tableName);
 
 /** prepare values */
 /** $name, $label, $additionalAttributes = [] */
