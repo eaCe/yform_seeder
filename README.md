@@ -1,4 +1,4 @@
-# :construction: WIP YForm Datenbank "Migration"/Seeder
+# YForm Datenbank "Migration"/Seeder
 
 Über die Addon-Einstellung lassen sich Templates mit einem Tabellen Namen für YForm Tabellen erstellen.
 Über diese Templates lassen sich YForm-Tabllen, deren Felder und Demo-Daten anlegen.
