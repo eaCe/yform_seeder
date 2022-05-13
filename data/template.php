@@ -10,6 +10,7 @@ use YformSeeder\Seeder;
     $seeder->beMedia('name', 'Name');
     $seeder->beTable('name', 'Name');
     $seeder->beUser('name', 'Name');
+    $seeder->checkbox('name', 'Name');
     $seeder->choice('name', 'Name');
     $seeder->date('name', 'Name');
     $seeder->datestamp('name', 'Name');

@@ -33,6 +33,22 @@ class Value
     protected function createValueField(): void {}
 
     /**
+     * show field in list
+     * @return void
+     */
+    public function showInList(): void {
+        $this->attributes['list_hidden'] = 0;
+    }
+
+    /**
+     * show field in search
+     * @return void
+     */
+    public function showInSearch(): void {
+        $this->attributes['search'] = 1;
+    }
+
+    /**
      * @throws \rex_exception
      */
     public function throwTypeNotSupportedException(string $type = ''): void {

@@ -6,6 +6,7 @@ use YformSeeder\Value\BeLink;
 use YformSeeder\Value\BeMedia;
 use YformSeeder\Value\BeTable;
 use YformSeeder\Value\BeUser;
+use YformSeeder\Value\Checkbox;
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
@@ -18,7 +19,6 @@ use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Time;
 use YformSeeder\Value\Upload;
 use YformSeeder\Value\Uuid;
-use YformSeeder\Value\Value;
 
 class Seeder
 {
@@ -131,6 +131,11 @@ class Seeder
 
         $attributes['prio'] = $prio;
 
+        /**
+         * create missing columns
+         */
+        \rex_yform_manager_table_api::createMissingFieldColumns($attributes);
+
         $sql->setTable($yformTable);
 
         foreach ($attributes as $key => $value) {
@@ -143,210 +148,257 @@ class Seeder
 
     /**
      * create a text value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Text
      */
-    public function text(string $name, string $label = '', array $attributes = []): void {
+    public function text(string $name, string $label = '', array $attributes = []): Text {
         $value = new Text($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a textarea value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return TextArea
      */
-    public function textarea(string $name, string $label = '', array $attributes = []): void {
+    public function textarea(string $name, string $label = '', array $attributes = []): TextArea {
         $value = new TextArea($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a be_link value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return BeLink
      */
-    public function beLink(string $name, string $label = '', array $attributes = []): void {
+    public function beLink(string $name, string $label = '', array $attributes = []): BeLink {
         $value = new BeLink($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a be_media value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return BeMedia
      */
-    public function beMedia(string $name, string $label = '', array $attributes = []): void {
+    public function beMedia(string $name, string $label = '', array $attributes = []): BeMedia {
         $value = new BeMedia($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a be_table value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return BeTable
      */
-    public function beTable(string $name, string $label = '', array $attributes = []): void {
+    public function beTable(string $name, string $label = '', array $attributes = []): BeTable {
         $value = new BeTable($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a be_user value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return BeUser
      */
-    public function beUser(string $name, string $label = '', array $attributes = []): void {
+    public function beUser(string $name, string $label = '', array $attributes = []): BeUser {
         $value = new BeUser($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a choice value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Choice
      */
-    public function choice(string $name, string $label = '', array $attributes = []): void {
+    public function choice(string $name, string $label = '', array $attributes = []): Choice {
         $value = new Choice($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a checkbox value field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return Checkbox
+     */
+    public function checkbox(string $name, string $label = '', array $attributes = []): Checkbox {
+        $value = new Checkbox($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a date value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Date
      */
-    public function date(string $name, string $label = '', array $attributes = []): void {
+    public function date(string $name, string $label = '', array $attributes = []): Date {
         $value = new Date($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a datestamp value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Datestamp
      */
-    public function datestamp(string $name, string $label = '', array $attributes = []): void {
+    public function datestamp(string $name, string $label = '', array $attributes = []): Datestamp {
         $value = new Datestamp($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a email value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Email
      */
-    public function email(string $name, string $label = '', array $attributes = []): void {
+    public function email(string $name, string $label = '', array $attributes = []): Email {
         $value = new Email($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a int value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Integer
      */
-    public function integer(string $name, string $label = '', array $attributes = []): void {
+    public function integer(string $name, string $label = '', array $attributes = []): Integer {
         $value = new Integer($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a time value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Time
      */
-    public function time(string $name, string $label = '', array $attributes = []): void {
+    public function time(string $name, string $label = '', array $attributes = []): Time {
         $value = new Time($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a ip value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return IP
      */
-    public function ip(string $name, string $label = '', array $attributes = []): void {
+    public function ip(string $name, string $label = '', array $attributes = []): IP {
         $value = new IP($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a number value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Number
      */
-    public function number(string $name, string $label = '', array $attributes = []): void {
+    public function number(string $name, string $label = '', array $attributes = []): Number {
         $value = new Number($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a upload value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Upload
      */
-    public function upload(string $name, string $label = '', array $attributes = []): void {
+    public function upload(string $name, string $label = '', array $attributes = []): Upload {
         $value = new Upload($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
      * create a uuid value field
+     *
      * @param string $name
      * @param string $label
      * @param array $attributes
-     * @return void
      * @throws \rex_exception
+     * @return Uuid
      */
-    public function uuid(string $name, string $label = '', array $attributes = []): void {
+    public function uuid(string $name, string $label = '', array $attributes = []): Uuid {
         $value = new Uuid($name, $label, $attributes);
         $this->addAttributes($value->attributes);
+        return $value;
     }
 
     /**
