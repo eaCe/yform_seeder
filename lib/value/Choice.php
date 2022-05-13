@@ -4,13 +4,13 @@ namespace YformSeeder\Value;
 
 class Choice extends Value
 {
-    private static array $fieldAttributes = [
+    private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'choice',
         'db_type' => 'text',
     ];
 
-    private static array $allowedTypes = [
+    private array $allowedTypes = [
         'text',
         'int',
         'tinyint(1)',
@@ -22,13 +22,11 @@ class Choice extends Value
      * @return void
      * @throws \rex_exception
      */
-    public static function createValueField(): void {
-        $attributes = array_merge(self::$fieldAttributes, self::$attributes);
+    protected function createValueField(): void {
+        $attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!in_array($attributes['db_type'], self::$allowedTypes, true)) {
-            self::throwTypeNotSupportedException($attributes['db_type']);
+        if(!in_array($attributes['db_type'], $this->allowedTypes, true)) {
+            $this->throwTypeNotSupportedException($attributes['db_type']);
         }
-
-        self::insert($attributes);
     }
 }

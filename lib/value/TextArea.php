@@ -4,13 +4,13 @@ namespace YformSeeder\Value;
 
 class TextArea extends Value
 {
-    private static array $fieldAttributes = [
+    private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'textarea',
         'db_type' => 'text',
     ];
 
-    private static array $allowedTypes = [
+    private array $allowedTypes = [
         'text',
         'mediumtext',
     ];
@@ -20,13 +20,11 @@ class TextArea extends Value
      * @return void
      * @throws \rex_exception
      */
-    public static function createValueField(): void {
-        $attributes = array_merge(self::$fieldAttributes, self::$attributes);
+    protected function createValueField(): void {
+        $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!in_array($attributes['db_type'], self::$allowedTypes, true)) {
-            self::throwTypeNotSupportedException($attributes['db_type']);
+        if(!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
+            $this->throwTypeNotSupportedException($this->attributes['db_type']);
         }
-
-        self::insert($attributes);
     }
 }

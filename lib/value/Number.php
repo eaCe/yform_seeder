@@ -4,7 +4,7 @@ namespace YformSeeder\Value;
 
 class Number extends Value
 {
-    private static array $fieldAttributes = [
+    private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'number',
         'db_type' => 'DECIMAL(10,2)',
@@ -15,13 +15,11 @@ class Number extends Value
      * @return void
      * @throws \rex_exception
      */
-    public static function createValueField(): void {
-        $attributes = array_merge(self::$fieldAttributes, self::$attributes);
+    public function createValueField(): void {
+        $attributes = array_merge($this->fieldAttributes, $this->attributes);
 
         if(!preg_match('/^((DECIMAL)(\((\d+),(\d+)\)))/', $attributes['db_type'])) {
-            self::throwTypeNotSupportedException($attributes['db_type']);
+            $this->throwTypeNotSupportedException($attributes['db_type']);
         }
-
-        self::insert($attributes);
     }
 }
