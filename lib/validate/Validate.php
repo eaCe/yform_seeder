@@ -1,10 +1,10 @@
 <?php
 
-namespace YformSeeder\Value;
+namespace YformSeeder\Validate;
 
 use YformSeeder\Utilities;
 
-class Value
+class Validate
 {
     public array $attributes = [
         'list_hidden' => 1,
@@ -13,40 +13,22 @@ class Value
     ];
 
     /**
-     * @param string $name
      * @param string $label
      * @param array $attributes
      * @throws \rex_exception
      */
-    public function __construct(string $name, string $label = '', array $attributes = []) {
-        $this->attributes['name'] = Utilities::normalize(Utilities::sanitize($name));
+    public function __construct(string $label = '', array $attributes = []) {
         $this->attributes['label'] = Utilities::sanitize($label);
         $this->attributes = array_merge($this->attributes, $attributes);
-        $this->createValueField();
+        $this->createValidationField();
     }
 
     /**
-     * create value field
+     * create validation field
      * @return void
      * @throws \rex_exception
      */
-    protected function createValueField(): void {}
-
-    /**
-     * show field in list
-     * @return void
-     */
-    public function showInList(): void {
-        $this->attributes['list_hidden'] = 0;
-    }
-
-    /**
-     * show field in search
-     * @return void
-     */
-    public function showInSearch(): void {
-        $this->attributes['search'] = 1;
-    }
+    protected function createValidationField(): void {}
 
     /**
      * @throws \rex_exception

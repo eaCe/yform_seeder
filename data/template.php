@@ -5,6 +5,7 @@ use YformSeeder\Seeder;
 
 /**
     available value types:
+    ($name, $label, $attributes = [])
     ---
     $seeder->beLink('name', 'Name');
     $seeder->beMedia('name', 'Name');
@@ -25,6 +26,22 @@ use YformSeeder\Seeder;
     $seeder->time('name', 'Name');
     $seeder->upload('name', 'Name');
     $seeder->uuid('name', 'Name');
+*/
+
+/**
+    available validate types:
+    ($label, $attributes = [])
+    ---
+    $seeder->validateCompare('Name');
+    $seeder->validateCompareValue('Name');
+    $seeder->validateEmpty('Name');
+    $seeder->validateIntFromTo('Name');
+    $seeder->validatePasswordPolicy('Name');
+    $seeder->validatePregMatch('Name');
+    $seeder->validateSize('Name');
+    $seeder->validateSizeRange('Name');
+    $seeder->validateType('Name');
+    $seeder->validateUnique('Name');
 */
 
 $tableName = '###tablename###';

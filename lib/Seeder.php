@@ -2,6 +2,16 @@
 
 namespace YformSeeder;
 
+use YformSeeder\Validate\Compare;
+use YformSeeder\Validate\CompareValue;
+use YformSeeder\Validate\EmptyValidate;
+use YformSeeder\Validate\IntFromTo;
+use YformSeeder\Validate\PasswordPolicy;
+use YformSeeder\Validate\PregMatch;
+use YformSeeder\Validate\Size;
+use YformSeeder\Validate\SizeRange;
+use YformSeeder\Validate\Type;
+use YformSeeder\Validate\Unique;
 use YformSeeder\Value\BeLink;
 use YformSeeder\Value\BeMedia;
 use YformSeeder\Value\BeTable;
@@ -79,7 +89,7 @@ class Seeder
      * @throws \rex_sql_exception
      */
     private function insertField(array $attributes): void {
-        if($attributes['db_type'] === 'none') {
+        if($attributes['db_type'] === 'none' || $attributes['db_type'] === '' || $attributes['type_id'] === 'validate') {
             return;
         }
 
@@ -116,10 +126,13 @@ class Seeder
         $yformTable = \rex::getTable('yform_field');
         $sql = \rex_sql::factory();
         $attributes['table_name'] = $this->name;
+        $fieldId = null;
 
-        $query = 'SELECT id FROM ' . $yformTable;
-        $query .= ' WHERE name = ? AND table_name = ? AND type_id = ?';
-        $fieldId = $sql->getArray($query, [$attributes['name'], $this->name, $attributes['type_id']], \PDO::FETCH_COLUMN);
+        if($attributes['type_id'] === 'value') {
+            $query = 'SELECT id FROM ' . $yformTable;
+            $query .= ' WHERE name = ? AND table_name = ? AND type_id = ?';
+            $fieldId = $sql->getArray($query, [$attributes['name'], $this->name, $attributes['type_id']], \PDO::FETCH_COLUMN);
+        }
 
         $prio = $sql->getArray('SELECT MAX(prio) AS max FROM ' . $yformTable . ' WHERE table_name = ?', [$this->name]);
 
@@ -445,10 +458,150 @@ class Seeder
      * @param string $label
      * @param array $attributes
      * @return ShowValue
-     *@throws \rex_exception
+     * @throws \rex_exception
      */
     public function showvalue(string $name, string $label = '', array $attributes = []): ShowValue {
         $value = new ShowValue($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a empty validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return EmptyValidate
+     * @throws \rex_exception
+     */
+    public function validateEmpty(string $label = '', array $attributes = []): EmptyValidate {
+        $value = new EmptyValidate($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a compare validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return Compare
+     * @throws \rex_exception
+     */
+    public function validateCompare(string $label = '', array $attributes = []): Compare {
+        $value = new Compare($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a compare value validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return CompareValue
+     * @throws \rex_exception
+     */
+    public function validateCompareValue(string $label = '', array $attributes = []): CompareValue {
+        $value = new CompareValue($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a type validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return Type
+     * @throws \rex_exception
+     */
+    public function validateType(string $label = '', array $attributes = []): Type {
+        $value = new Type($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a int from to validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return IntFromTo
+     * @throws \rex_exception
+     */
+    public function validateIntFromTo(string $label = '', array $attributes = []): IntFromTo {
+        $value = new IntFromTo($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a password policy validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return PasswordPolicy
+     * @throws \rex_exception
+     */
+    public function validatePasswordPolicy(string $label = '', array $attributes = []): PasswordPolicy {
+        $value = new PasswordPolicy($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a preg match validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return PregMatch
+     * @throws \rex_exception
+     */
+    public function validatePregMatch(string $label = '', array $attributes = []): PregMatch {
+        $value = new PregMatch($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a size validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return Size
+     * @throws \rex_exception
+     */
+    public function validateSize(string $label = '', array $attributes = []): Size {
+        $value = new Size($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a preg match validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return SizeRange
+     * @throws \rex_exception
+     */
+    public function validateSizeRange(string $label = '', array $attributes = []): SizeRange {
+        $value = new SizeRange($label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a preg match validation field
+     *
+     * @param string $label
+     * @param array $attributes
+     * @return Unique
+     * @throws \rex_exception
+     */
+    public function validateUnique(string $label = '', array $attributes = []): Unique {
+        $value = new Unique($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }
