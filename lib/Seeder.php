@@ -15,6 +15,7 @@ use YformSeeder\Value\Html;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\IP;
 use YformSeeder\Value\Number;
+use YformSeeder\Value\ShowValue;
 use YformSeeder\Value\Text;
 use YformSeeder\Value\TextArea;
 use YformSeeder\Value\Time;
@@ -417,6 +418,21 @@ class Seeder
      */
     public function html(string $name, string $label = '', array $attributes = []): Html {
         $value = new Html($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a showvalue field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @return ShowValue
+     *@throws \rex_exception
+     */
+    public function showvalue(string $name, string $label = '', array $attributes = []): ShowValue {
+        $value = new ShowValue($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }
