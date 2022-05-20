@@ -12,6 +12,7 @@ use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
 use YformSeeder\Value\Email;
 use YformSeeder\Value\Html;
+use YformSeeder\Value\ImageList;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\IP;
 use YformSeeder\Value\Number;
@@ -208,6 +209,21 @@ class Seeder
      */
     public function beMedia(string $name, string $label = '', array $attributes = []): BeMedia {
         $value = new BeMedia($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a imagelist value field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return ImageList
+     */
+    public function imageList(string $name, string $label = '', array $attributes = []): ImageList {
+        $value = new ImageList($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }

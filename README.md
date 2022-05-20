@@ -29,6 +29,7 @@ use YformSeeder\Seeder;
     $seeder->date('name', 'Name');
     $seeder->datestamp('name', 'Name');
     $seeder->email('name', 'Name');
+    $seeder->imagelist('name', 'Name');
     $seeder->integer('name', 'Name');
     $seeder->ip('name', 'Name');
     $seeder->number('name', 'Name');
