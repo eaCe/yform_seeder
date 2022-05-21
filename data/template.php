@@ -8,6 +8,7 @@ use YformSeeder\Seeder;
     ($name, $label, $attributes = [])
     ---
     $seeder->beLink('name', 'Name');
+    $seeder->beManagerRelation('name', 'Name');
     $seeder->beMedia('name', 'Name');
     $seeder->beTable('name', 'Name');
     $seeder->beUser('name', 'Name');

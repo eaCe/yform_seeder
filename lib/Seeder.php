@@ -13,6 +13,7 @@ use YformSeeder\Validate\SizeRange;
 use YformSeeder\Validate\Type;
 use YformSeeder\Validate\Unique;
 use YformSeeder\Value\BeLink;
+use YformSeeder\Value\BeManagerRelation;
 use YformSeeder\Value\BeMedia;
 use YformSeeder\Value\BeTable;
 use YformSeeder\Value\BeUser;
@@ -208,6 +209,21 @@ class Seeder
      */
     public function beLink(string $name, string $label = '', array $attributes = []): BeLink {
         $value = new BeLink($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a be_link value field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return BeManagerRelation
+     */
+    public function beManagerRelation(string $name, string $label = '', array $attributes = []): BeManagerRelation {
+        $value = new BeManagerRelation($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }
