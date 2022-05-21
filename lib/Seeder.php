@@ -20,6 +20,7 @@ use YformSeeder\Value\Checkbox;
 use YformSeeder\Value\Choice;
 use YformSeeder\Value\Date;
 use YformSeeder\Value\Datestamp;
+use YformSeeder\Value\DateTime;
 use YformSeeder\Value\Email;
 use YformSeeder\Value\Html;
 use YformSeeder\Value\ImageList;
@@ -312,6 +313,21 @@ class Seeder
      */
     public function date(string $name, string $label = '', array $attributes = []): Date {
         $value = new Date($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+    /**
+     * create a datetime value field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return DateTime
+     */
+    public function dateTime(string $name, string $label = '', array $attributes = []): DateTime {
+        $value = new DateTime($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }
