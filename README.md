@@ -4,7 +4,7 @@
 Über diese Templates lassen sich YForm-Tabllen, deren Felder und Demo-Daten anlegen.
 
 Demo-Daten können auch mit [FakerPHP](https://fakerphp.github.io/) erstellt werden (im Addon enthalten).
-
+Für Datum und Uhrzeit kann [Carbon](https://github.com/briannesbitt/carbon) genutzt werden.
 
 Das Addon sollte nützlich sein, wenn man schnell einen YForm-Datensatz benötigt.
 
