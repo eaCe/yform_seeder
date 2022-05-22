@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use YformSeeder\Table;
 use YformSeeder\Seeder;
 
