@@ -38,6 +38,7 @@ use YformSeeder\Seeder;
     $seeder->integer('name', 'Name');
     $seeder->ip('name', 'Name');
     $seeder->number('name', 'Name');
+    $seeder->prio('name', 'Name');
     $seeder->showvalue('name', 'Name');
     $seeder->text('name', 'Name');
     $seeder->textarea('name', 'Name');

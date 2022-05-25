@@ -28,6 +28,7 @@ use YformSeeder\Value\ImageList;
 use YformSeeder\Value\Integer;
 use YformSeeder\Value\IP;
 use YformSeeder\Value\Number;
+use YformSeeder\Value\Prio;
 use YformSeeder\Value\ShowValue;
 use YformSeeder\Value\Text;
 use YformSeeder\Value\TextArea;
@@ -434,6 +435,22 @@ class Seeder
      */
     public function number(string $name, string $label = '', array $attributes = []): Number {
         $value = new Number($name, $label, $attributes);
+        $this->addAttributes($value->attributes);
+        return $value;
+    }
+
+
+    /**
+     * create a prio value field
+     *
+     * @param string $name
+     * @param string $label
+     * @param array $attributes
+     * @throws \rex_exception
+     * @return Prio
+     */
+    public function prio(string $name, string $label = '', array $attributes = []): Prio {
+        $value = new Prio($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
     }
