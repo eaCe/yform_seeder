@@ -65,7 +65,7 @@ class Seeder
      * @throws \rex_exception
      */
     public function create() {
-        if (!$this->name) {
+        if ($this->name === '') {
             throw new \rex_exception('You must provide a table name');
         }
 
@@ -102,13 +102,13 @@ class Seeder
         $fieldCount = $sql->setQuery($query)->getRows();
 
         /** field already exists - return early */
-        if($fieldCount) {
+        if($fieldCount === 0) {
             return;
         }
 
         $after = null;
 
-        if($this->lastInsertedColumnName) {
+        if($this->lastInsertedColumnName !== '') {
             $after = $this->lastInsertedColumnName;
         }
 
@@ -140,7 +140,7 @@ class Seeder
         $prio = $sql->getArray('SELECT MAX(prio) AS max FROM ' . $yformTable . ' WHERE table_name = ?', [$this->name]);
 
         /** set field prio */
-        if(!empty($prio)) {
+        if(count($prio) !== 0) {
             $prio = $prio[0]['max'] + 1;
         }
         else {
@@ -148,7 +148,7 @@ class Seeder
         }
 
         /** field already exists - return early */
-        if($fieldId) {
+        if($fieldId !== null) {
             return;
         }
 

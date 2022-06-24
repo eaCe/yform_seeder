@@ -113,7 +113,7 @@ class Utilities
             $sql->setWhere('`file` = :name', ['name' => $name]);
             $sql->select();
 
-            if(!$sql->getRows()) {
+            if($sql->getRows() !== 0) {
                 include_once $filePath;
 
                 $sql = \rex_sql::factory();

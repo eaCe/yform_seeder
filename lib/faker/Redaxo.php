@@ -18,7 +18,7 @@ class Redaxo extends Base
         $sql = \rex_sql::factory();
         $query = 'SELECT `filename` FROM ' . \rex::getTable('media');
         $query .= ' WHERE `filetype` = :type';
-        if($categoryId) {
+        if($categoryId !== null) {
             $query .= ' AND `category_id` = :category';
             $queryParams['category'] = $categoryId;
         }
