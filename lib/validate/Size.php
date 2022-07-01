@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class Size extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'size',
@@ -16,6 +17,7 @@ class Size extends Validate
         'pattern' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

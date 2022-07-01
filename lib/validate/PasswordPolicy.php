@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class PasswordPolicy extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'password_policy',
@@ -16,6 +17,7 @@ class PasswordPolicy extends Validate
         'rules' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

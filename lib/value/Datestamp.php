@@ -13,6 +13,7 @@ class Datestamp extends Value
         'no_db' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'datetime',
     ];

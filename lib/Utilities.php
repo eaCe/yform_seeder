@@ -9,8 +9,12 @@ class Utilities
      * @return void
      */
     public static function migrate(string $path): void {
-        foreach (glob($path) as $file) {
-            include_once $file;
+        $filePath = glob($path);
+
+        if($filePath !== false) {
+            foreach ($filePath as $file) {
+                include_once $file;
+            }
         }
     }
 
@@ -29,7 +33,13 @@ class Utilities
      * @return string
      */
     public static function sanitize(string $string): string {
-        return filter_var($string, FILTER_SANITIZE_STRING);
+        $filtered = filter_var($string, FILTER_SANITIZE_STRING);
+
+        if ($filtered === false) {
+            return '';
+        }
+
+        return $filtered;
     }
 
     /**

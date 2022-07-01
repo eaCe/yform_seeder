@@ -4,6 +4,7 @@ namespace YformSeeder;
 
 class Table
 {
+    /** @var array|string[]  */
     private static array $attributes = [
         'status' => '1',
         'table_name' => '',
@@ -27,7 +28,7 @@ class Table
      * create a new table set and import/install it
      * @param string $tableName
      * @param string $name
-     * @param array $tableAttributes
+     * @param array|string[] $tableAttributes
      * @return void
      * @throws \JsonException
      * @throws \rex_sql_exception

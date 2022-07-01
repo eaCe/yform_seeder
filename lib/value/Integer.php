@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class Integer extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'integer',
         'db_type' => 'int',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'int',
         'bigint',

@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class SizeRange extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'size_range',
@@ -17,6 +18,7 @@ class SizeRange extends Validate
         'max' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

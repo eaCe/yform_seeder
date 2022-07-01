@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class Unique extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'unique',
@@ -17,6 +18,7 @@ class Unique extends Validate
         'empty_option' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

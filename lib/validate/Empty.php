@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class EmptyValidate extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'empty',
@@ -16,10 +17,12 @@ class EmptyValidate extends Validate
         'type' => 'int',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedValidationTypes = [
         'int',
         'float',

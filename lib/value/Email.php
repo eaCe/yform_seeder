@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class Email extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'email',
         'db_type' => 'varchar(191)',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'varchar(191)',
         'text',

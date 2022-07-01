@@ -12,6 +12,7 @@ class BeUser extends Value
         'show_value' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'varchar(191)',
     ];

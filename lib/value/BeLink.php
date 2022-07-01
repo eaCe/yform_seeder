@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class BeLink extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'be_link',
         'db_type' => 'text',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
     ];

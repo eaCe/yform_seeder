@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class Prio extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'prio',
@@ -12,6 +13,7 @@ class Prio extends Value
         'fields' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'int',
     ];

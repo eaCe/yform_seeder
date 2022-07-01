@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class Compare extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'compare',
@@ -16,10 +17,12 @@ class Compare extends Validate
         'name2' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedCompareTypes = [
         '!=',
         '<',

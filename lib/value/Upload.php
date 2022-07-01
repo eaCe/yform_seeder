@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class Upload extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'upload',
@@ -12,6 +13,7 @@ class Upload extends Value
         'required' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
     ];

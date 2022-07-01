@@ -6,12 +6,14 @@ use YformSeeder\Utilities;
 
 class ShowValue extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'showvalue',
         'db_type' => 'none',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'varchar(191)',
         'text',

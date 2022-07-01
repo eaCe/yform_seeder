@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class IntFromTo extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'intfromto',
@@ -17,6 +18,7 @@ class IntFromTo extends Validate
         'to' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

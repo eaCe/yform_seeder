@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class IP extends Value
 {
+    /** @var array  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'ip',
@@ -11,6 +12,7 @@ class IP extends Value
         'no_db' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
         'varchar(191)',

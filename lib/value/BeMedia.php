@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class BeMedia extends Value
 {
+    /** @var array  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'be_media',
@@ -14,6 +15,7 @@ class BeMedia extends Value
         'preview' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
     ];

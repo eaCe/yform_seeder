@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class BeManagerRelation extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'be_manager_relation',
@@ -14,6 +15,7 @@ class BeManagerRelation extends Value
         'empty_option' => '0',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
         'varchar(191)',

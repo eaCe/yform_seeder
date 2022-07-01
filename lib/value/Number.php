@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class Number extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'number',

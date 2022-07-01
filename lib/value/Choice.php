@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class Choice extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'choice',
         'db_type' => 'text',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
         'int',

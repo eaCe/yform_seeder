@@ -14,6 +14,7 @@ class Time extends Value
         'current_time' => 0,
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'time',
     ];

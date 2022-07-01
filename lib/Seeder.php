@@ -38,6 +38,7 @@ use YformSeeder\Value\Uuid;
 
 class Seeder
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [];
     private ?string $lastInsertedColumnName = null;
     /**
@@ -76,7 +77,7 @@ class Seeder
 
     /**
      * create a new value field
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return void
      * @throws \rex_sql_exception
      */
@@ -87,7 +88,7 @@ class Seeder
 
     /**
      * create a new value field
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return void
      * @throws \rex_sql_exception
      */
@@ -121,7 +122,7 @@ class Seeder
 
     /**
      * create a new value field
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return void
      * @throws \rex_sql_exception
      */
@@ -140,7 +141,7 @@ class Seeder
         $prio = $sql->getArray('SELECT MAX(prio) AS max FROM ' . $yformTable . ' WHERE table_name = ?', [$this->name]);
 
         /** set field prio */
-        if(count($prio) !== 0) {
+        if(count($prio) !== 0 && is_int($prio[0]['max'])) {
             $prio = $prio[0]['max'] + 1;
         }
         else {
@@ -174,7 +175,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Text
      */
@@ -189,7 +190,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return TextArea
      */
@@ -204,7 +205,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return BeLink
      */
@@ -219,7 +220,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return BeManagerRelation
      */
@@ -234,7 +235,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return BeMedia
      */
@@ -249,7 +250,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return ImageList
      */
@@ -264,7 +265,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return BeTable
      */
@@ -279,7 +280,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return BeUser
      */
@@ -294,7 +295,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Choice
      */
@@ -309,7 +310,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Checkbox
      */
@@ -324,7 +325,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Date
      */
@@ -339,7 +340,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return DateTime
      */
@@ -354,7 +355,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Datestamp
      */
@@ -369,7 +370,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Email
      */
@@ -384,11 +385,11 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
-     * @return Integer
+     * @return Value\Integer
      */
-    public function integer(string $name, string $label = '', array $attributes = []): Integer {
+    public function integer(string $name, string $label = '', array $attributes = []): Value\Integer {
         $value = new Integer($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -399,7 +400,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Time
      */
@@ -414,7 +415,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return IP
      */
@@ -429,7 +430,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Number
      */
@@ -445,7 +446,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Prio
      */
@@ -460,7 +461,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Upload
      */
@@ -475,7 +476,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Uuid
      */
@@ -490,7 +491,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @throws \rex_exception
      * @return Html
      */
@@ -505,7 +506,7 @@ class Seeder
      *
      * @param string $name
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return ShowValue
      * @throws \rex_exception
      */
@@ -519,7 +520,7 @@ class Seeder
      * create a empty validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return EmptyValidate
      * @throws \rex_exception
      */
@@ -533,7 +534,7 @@ class Seeder
      * create a compare validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return Compare
      * @throws \rex_exception
      */
@@ -547,7 +548,7 @@ class Seeder
      * create a compare value validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return CompareValue
      * @throws \rex_exception
      */
@@ -561,7 +562,7 @@ class Seeder
      * create a type validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return Type
      * @throws \rex_exception
      */
@@ -575,7 +576,7 @@ class Seeder
      * create a int from to validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return IntFromTo
      * @throws \rex_exception
      */
@@ -589,7 +590,7 @@ class Seeder
      * create a password policy validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return PasswordPolicy
      * @throws \rex_exception
      */
@@ -603,7 +604,7 @@ class Seeder
      * create a preg match validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return PregMatch
      * @throws \rex_exception
      */
@@ -617,7 +618,7 @@ class Seeder
      * create a size validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return Size
      * @throws \rex_exception
      */
@@ -631,7 +632,7 @@ class Seeder
      * create a preg match validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return SizeRange
      * @throws \rex_exception
      */
@@ -645,7 +646,7 @@ class Seeder
      * create a preg match validation field
      *
      * @param string $label
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return Unique
      * @throws \rex_exception
      */
@@ -656,7 +657,7 @@ class Seeder
     }
 
     /**
-     * @param array $attributes
+     * @param array|string[] $attributes
      * @return void
      */
     private function addAttributes(array $attributes) {

@@ -4,6 +4,7 @@ namespace YformSeeder\Value;
 
 class DateTime extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'datetime',
@@ -14,6 +15,7 @@ class DateTime extends Value
         'year_end' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'datetime',
     ];

@@ -66,15 +66,18 @@ $sql->setTable(rex::getTable($this->getName()));
 $templatesQuery = $sql->select('file as file')->getArray();
 $importedTemplates = array_map(static function($template) {return $template['file'];}, $templatesQuery);
 $notImportedTemplates = [];
+$filePaths = glob($this->getDataPath() . '*.php');
 
-foreach (glob($this->getDataPath() . '*.php') as $filePath) {
-    $name = str_replace([$this->getDataPath(), '.php'], ['', ''], $filePath);
+if($filePaths !== false) {
+    foreach ($filePaths as $filePath) {
+        $name = str_replace([$this->getDataPath(), '.php'], ['', ''], $filePath);
 
-    if(in_array($name, $importedTemplates, true)) {
-        continue;
+        if(in_array($name, $importedTemplates, true)) {
+            continue;
+        }
+
+        $notImportedTemplates[] = $name;
     }
-
-    $notImportedTemplates[] = $name;
 }
 
 $infoContent = '<div class="row">';

@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class ImageList extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'imagelist',
         'db_type' => 'text',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'text',
     ];

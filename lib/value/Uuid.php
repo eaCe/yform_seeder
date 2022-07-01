@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class Uuid extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'uuid',
         'db_type' => 'varchar(36)',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'varchar(36)',
     ];

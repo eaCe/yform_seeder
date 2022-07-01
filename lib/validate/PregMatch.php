@@ -7,6 +7,7 @@ namespace YformSeeder\Validate;
  */
 class PregMatch extends Validate
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'preg_match',
@@ -16,6 +17,7 @@ class PregMatch extends Validate
         'pattern' => '',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         '',
     ];

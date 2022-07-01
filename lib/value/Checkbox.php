@@ -4,12 +4,14 @@ namespace YformSeeder\Value;
 
 class Checkbox extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'checkbox',
         'db_type' => 'tinyint(1)',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'tinyint(1)',
     ];
