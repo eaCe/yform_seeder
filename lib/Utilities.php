@@ -51,7 +51,7 @@ class Utilities
         return \rex_string::sanitizeHtml($string);
     }
 
-    private static function getAddon() {
+    private static function getAddon(): \rex_addon_interface {
         return \rex_addon::get('yform_seeder');
     }
 
@@ -62,14 +62,17 @@ class Utilities
      */
     private static function fileExists(string $tableName): bool {
         $addon = self::getAddon();
+        $filePaths = glob($addon->getDataPath() . '*.php');
 
-        foreach (glob($addon->getDataPath() . '*.php') as $filePath) {
-            $name  = basename($filePath);
-            $nameParts = explode('_', $name);
-            $name = str_replace([$nameParts[0] . '_', '.php'], ['', ''], $name);
+        if($filePaths !== false) {
+            foreach ($filePaths as $filePath) {
+                $name  = basename($filePath);
+                $nameParts = explode('_', $name);
+                $name = str_replace([$nameParts[0] . '_', '.php'], ['', ''], $name);
 
-            if($tableName === $name) {
-                return true;
+                if($tableName === $name) {
+                    return true;
+                }
             }
         }
 

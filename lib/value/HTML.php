@@ -6,12 +6,14 @@ use YformSeeder\Utilities;
 
 class Html extends Value
 {
+    /** @var array|string[]  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'html',
         'db_type' => 'none',
     ];
 
+    /** @var array|string[]  */
     private array $allowedTypes = [
         'none',
     ];

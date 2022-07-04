@@ -660,7 +660,7 @@ class Seeder
      * @param array|string[] $attributes
      * @return void
      */
-    private function addAttributes(array $attributes) {
+    private function addAttributes(array $attributes): void {
         $this->fieldAttributes[] = $attributes;
     }
 }
