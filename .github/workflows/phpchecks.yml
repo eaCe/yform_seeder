@@ -71,9 +71,9 @@ jobs:
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: composer phpcs
 
-#      - name: Setup Problem Matchers for PHPUnit
-#        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Setup Problem Matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-#      - name: Run phpunit
-#        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
-#        run: composer test
+      - name: Run phpunit
+        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
+        run: composer test

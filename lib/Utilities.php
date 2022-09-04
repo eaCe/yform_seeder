@@ -88,9 +88,9 @@ class Utilities
     /**
      * sanitize the given string
      * @param string $name
-     * @return void
+     * @return void|false
      */
-    public static function createFile(string $name): void
+    public static function createFile(string $name)
     {
         $addon = self::getAddon();
         $tableName = \rex::getTable(self::normalize(self::sanitize($name)));
@@ -101,12 +101,12 @@ class Utilities
 
         if ('' === $name) {
             echo \rex_view::error($addon->i18n('table_name_empty'));
-            return;
+            return false;
         }
 
         if (self::fileExists($tableName)) {
             echo \rex_view::error($addon->i18n('table_name_exists', $tableName));
-            return;
+            return false;
         }
 
         /** create dir if not available */
@@ -120,12 +120,23 @@ class Utilities
 
     /**
      * import templates
-     * @return void
+     * @return void|null
      * @throws \rex_sql_exception
      */
-    public static function importTemplates(): void
+    public static function importTemplates()
     {
         $addon = self::getAddon();
+        $dataDir = $addon->getDataPath();
+
+        if (!is_readable($dataDir)) {
+            return null;
+        }
+
+        // 2 = empty -> ['.', '..']
+        if (count(scandir($dataDir)) === 2) {
+            return null;
+        }
+
         foreach (glob($addon->getDataPath() . '*.php') as $filePath) {
             $name = str_replace([$addon->getDataPath(), '.php'], ['', ''], $filePath);
 
