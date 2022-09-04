@@ -13,12 +13,13 @@ class Redaxo extends Base
      * @return string
      * @throws \rex_sql_exception
      */
-    public function beMedia(int $categoryId = null, string $type = 'image/jpeg'): string {
+    public function beMedia(int $categoryId = null, string $type = 'image/jpeg'): string
+    {
         $queryParams = ['type' => $type];
         $sql = \rex_sql::factory();
         $query = 'SELECT `filename` FROM ' . \rex::getTable('media');
         $query .= ' WHERE `filetype` = :type';
-        if($categoryId !== null) {
+        if ($categoryId !== null) {
             $query .= ' AND `category_id` = :category';
             $queryParams['category'] = $categoryId;
         }
@@ -33,7 +34,8 @@ class Redaxo extends Base
      * @return string
      * @throws \rex_sql_exception
      */
-    public function beLink(): string {
+    public function beLink(): string
+    {
         $sql = \rex_sql::factory();
         $query = 'SELECT `id` FROM ' . \rex::getTable('article');
         $query .= ' WHERE `status` = 1';
@@ -41,6 +43,5 @@ class Redaxo extends Base
         $sql->setQuery($query);
 
         return $sql->getValue('id');
-
     }
 }

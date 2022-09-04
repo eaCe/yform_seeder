@@ -175,10 +175,17 @@ abstract class AbstractOperation implements OperationInterface
         foreach ($this->getDomains() as $domain) {
             $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
             switch ($batch) {
-                case self::OBSOLETE_BATCH: $messages = $this->getObsoleteMessages($domain); break;
-                case self::NEW_BATCH: $messages = $this->getNewMessages($domain); break;
-                case self::ALL_BATCH: $messages = $this->getMessages($domain); break;
-                default: throw new \InvalidArgumentException(sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH));
+                case self::OBSOLETE_BATCH:
+                    $messages = $this->getObsoleteMessages($domain);
+                    break;
+                case self::NEW_BATCH:
+                    $messages = $this->getNewMessages($domain);
+                    break;
+                case self::ALL_BATCH:
+                    $messages = $this->getMessages($domain);
+                    break;
+                default:
+                    throw new \InvalidArgumentException(sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH));
             }
 
             if (!$messages || (!$this->source->all($intlDomain) && $this->source->all($domain))) {

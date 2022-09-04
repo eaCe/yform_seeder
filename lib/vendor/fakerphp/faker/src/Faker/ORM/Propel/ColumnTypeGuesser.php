@@ -69,9 +69,9 @@ class ColumnTypeGuesser
             case \PropelColumnTypes::FLOAT:
             case \PropelColumnTypes::DOUBLE:
             case \PropelColumnTypes::REAL:
-            return static function () use ($generator) {
-                return $generator->randomFloat();
-            };
+                return static function () use ($generator) {
+                    return $generator->randomFloat();
+                };
 
             case \PropelColumnTypes::CHAR:
             case \PropelColumnTypes::VARCHAR:

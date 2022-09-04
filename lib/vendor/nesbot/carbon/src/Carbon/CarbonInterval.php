@@ -1653,8 +1653,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         if ($method) {
             $previousCount = INF;
 
-            while (
-                \count($intervalValues->getNonZeroValues()) > $parts &&
+            while (\count($intervalValues->getNonZeroValues()) > $parts &&
                 ($count = \count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
             ) {
                 $index = min($count, $previousCount - 1) - 2;

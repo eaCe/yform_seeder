@@ -16,10 +16,11 @@ class Number extends Value
      * @return void
      * @throws \rex_exception
      */
-    public function createValueField(): void {
+    public function createValueField(): void
+    {
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!preg_match('/^((DECIMAL)(\((\d+),(\d+)\)))/', $this->attributes['db_type'])) {
+        if (!preg_match('/^((DECIMAL)(\((\d+),(\d+)\)))/', $this->attributes['db_type'])) {
             $this->throwTypeNotSupportedException($this->attributes['db_type']);
         }
     }

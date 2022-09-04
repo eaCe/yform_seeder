@@ -23,10 +23,11 @@ class Html extends Value
      * @return void
      * @throws \rex_exception
      */
-    protected function createValueField(): void {
+    protected function createValueField(): void
+    {
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
+        if (!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
             $this->throwTypeNotSupportedException($this->attributes['db_type']);
         }
     }
@@ -36,7 +37,8 @@ class Html extends Value
      * @param string $html
      * @return void
      */
-    public function set(string $html): void {
+    public function set(string $html): void
+    {
         $this->attributes['html'] = Utilities::sanitizeHtml($html);
     }
 }

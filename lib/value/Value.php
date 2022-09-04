@@ -18,7 +18,8 @@ class Value
      * @param array $attributes
      * @throws \rex_exception
      */
-    public function __construct(string $name, string $label = '', array $attributes = []) {
+    public function __construct(string $name, string $label = '', array $attributes = [])
+    {
         $this->attributes['name'] = Utilities::normalize(Utilities::sanitize($name));
         $this->attributes['label'] = Utilities::sanitize($label);
         $this->attributes = array_merge($this->attributes, $attributes);
@@ -30,13 +31,16 @@ class Value
      * @return void
      * @throws \rex_exception
      */
-    protected function createValueField(): void {}
+    protected function createValueField(): void
+    {
+    }
 
     /**
      * show field in list
      * @return void
      */
-    public function showInList(): void {
+    public function showInList(): void
+    {
         $this->attributes['list_hidden'] = 0;
     }
 
@@ -44,28 +48,32 @@ class Value
      * show field in search
      * @return void
      */
-    public function showInSearch(): void {
+    public function showInSearch(): void
+    {
         $this->attributes['search'] = 1;
     }
 
     /**
      * @throws \rex_exception
      */
-    public function throwTypeNotSupportedException(string $type = ''): void {
+    public function throwTypeNotSupportedException(string $type = ''): void
+    {
         throw new \rex_exception('db_type ' . $type . ' not supported for ' . $this->attributes['name']);
     }
 
     /**
      * @throws \rex_exception
      */
-    public function throwGenericNotSupportedException(string $type, string $attributeName): void {
+    public function throwGenericNotSupportedException(string $type, string $attributeName): void
+    {
         throw new \rex_exception($type . ' not supported for ' . $attributeName);
     }
 
     /**
      * @throws \rex_exception
      */
-    public function throwRequiredException(string $attributeName): void {
+    public function throwRequiredException(string $attributeName): void
+    {
         throw new \rex_exception($attributeName . ' is required!');
     }
 }

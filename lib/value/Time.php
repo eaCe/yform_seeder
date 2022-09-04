@@ -24,10 +24,11 @@ class Time extends Value
      * @return void
      * @throws \rex_exception
      */
-    public function createValueField(): void {
+    public function createValueField(): void
+    {
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
+        if (!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
             $this->throwTypeNotSupportedException($this->attributes['db_type']);
         }
     }

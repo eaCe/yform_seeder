@@ -60,7 +60,8 @@ class IcuResFileDumper extends FileDumper
 
         $bundleTop = $this->getPosition($data);
 
-        $root = pack('V7',
+        $root = pack(
+            'V7',
             $resOffset + (2 << 28), // Resource Offset + Resource Type
             6,                      // Index length
             $keyTop,                        // Index keys top
@@ -70,13 +71,27 @@ class IcuResFileDumper extends FileDumper
             0                               // Index attributes
         );
 
-        $header = pack('vC2v4C12@32',
+        $header = pack(
+            'vC2v4C12@32',
             32,                     // Header size
-            0xDA, 0x27,             // Magic number 1 and 2
-            20, 0, 0, 2,            // Rest of the header, ..., Size of a char
-            0x52, 0x65, 0x73, 0x42, // Data format identifier
-            1, 2, 0, 0,             // Data version
-            1, 4, 0, 0              // Unicode version
+            0xDA,
+            0x27,             // Magic number 1 and 2
+            20,
+            0,
+            0,
+            2,            // Rest of the header, ..., Size of a char
+            0x52,
+            0x65,
+            0x73,
+            0x42, // Data format identifier
+            1,
+            2,
+            0,
+            0,             // Data version
+            1,
+            4,
+            0,
+            0              // Unicode version
         );
 
         return $header.$root.$data;

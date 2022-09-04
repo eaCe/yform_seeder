@@ -49,7 +49,8 @@ class Seeder
     /**
      * @param string $name
      */
-    public function __construct(string $name) {
+    public function __construct(string $name)
+    {
         $this->name = Utilities::normalize(Utilities::sanitize($name));
     }
 
@@ -57,7 +58,8 @@ class Seeder
      * @param string $tableName the table name
      * @return Seeder
      */
-    public static function factory(string $tableName): Seeder {
+    public static function factory(string $tableName): Seeder
+    {
         return new self($tableName);
     }
 
@@ -65,7 +67,8 @@ class Seeder
      * @return void
      * @throws \rex_exception
      */
-    public function create() {
+    public function create()
+    {
         if ($this->name === '') {
             throw new \rex_exception('You must provide a table name');
         }
@@ -81,7 +84,8 @@ class Seeder
      * @return void
      * @throws \rex_sql_exception
      */
-    private function insert(array $attributes): void {
+    private function insert(array $attributes): void
+    {
         $this->insertField($attributes);
         $this->insertYFormField($attributes);
     }
@@ -92,8 +96,9 @@ class Seeder
      * @return void
      * @throws \rex_sql_exception
      */
-    private function insertField(array $attributes): void {
-        if($attributes['db_type'] === 'none' || $attributes['db_type'] === '' || $attributes['type_id'] === 'validate') {
+    private function insertField(array $attributes): void
+    {
+        if ($attributes['db_type'] === 'none' || $attributes['db_type'] === '' || $attributes['type_id'] === 'validate') {
             return;
         }
 
@@ -103,13 +108,13 @@ class Seeder
         $fieldCount = $sql->setQuery($query)->getRows();
 
         /** field already exists - return early */
-        if($fieldCount === 0) {
+        if ($fieldCount === 0) {
             return;
         }
 
         $after = null;
 
-        if($this->lastInsertedColumnName !== '') {
+        if ($this->lastInsertedColumnName !== '') {
             $after = $this->lastInsertedColumnName;
         }
 
@@ -126,13 +131,14 @@ class Seeder
      * @return void
      * @throws \rex_sql_exception
      */
-    private function insertYFormField($attributes): void {
+    private function insertYFormField($attributes): void
+    {
         $yformTable = \rex::getTable('yform_field');
         $sql = \rex_sql::factory();
         $attributes['table_name'] = $this->name;
         $fieldId = null;
 
-        if($attributes['type_id'] === 'value') {
+        if ($attributes['type_id'] === 'value') {
             $query = 'SELECT id FROM ' . $yformTable;
             $query .= ' WHERE name = ? AND table_name = ? AND type_id = ?';
             $fieldId = $sql->getArray($query, [$attributes['name'], $this->name, $attributes['type_id']], \PDO::FETCH_COLUMN);
@@ -141,7 +147,7 @@ class Seeder
         $prio = $sql->getArray('SELECT MAX(prio) AS max FROM ' . $yformTable . ' WHERE table_name = ?', [$this->name]);
 
         /** set field prio */
-        if(count($prio) !== 0 && is_int($prio[0]['max'])) {
+        if (count($prio) !== 0 && is_int($prio[0]['max'])) {
             $prio = $prio[0]['max'] + 1;
         }
         else {
@@ -149,7 +155,7 @@ class Seeder
         }
 
         /** field already exists - return early */
-        if($fieldId !== null) {
+        if ($fieldId !== null) {
             return;
         }
 
@@ -179,7 +185,8 @@ class Seeder
      * @throws \rex_exception
      * @return Text
      */
-    public function text(string $name, string $label = '', array $attributes = []): Text {
+    public function text(string $name, string $label = '', array $attributes = []): Text
+    {
         $value = new Text($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -194,7 +201,8 @@ class Seeder
      * @throws \rex_exception
      * @return TextArea
      */
-    public function textarea(string $name, string $label = '', array $attributes = []): TextArea {
+    public function textarea(string $name, string $label = '', array $attributes = []): TextArea
+    {
         $value = new TextArea($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -209,7 +217,8 @@ class Seeder
      * @throws \rex_exception
      * @return BeLink
      */
-    public function beLink(string $name, string $label = '', array $attributes = []): BeLink {
+    public function beLink(string $name, string $label = '', array $attributes = []): BeLink
+    {
         $value = new BeLink($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -224,7 +233,8 @@ class Seeder
      * @throws \rex_exception
      * @return BeManagerRelation
      */
-    public function beManagerRelation(string $name, string $label = '', array $attributes = []): BeManagerRelation {
+    public function beManagerRelation(string $name, string $label = '', array $attributes = []): BeManagerRelation
+    {
         $value = new BeManagerRelation($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -239,7 +249,8 @@ class Seeder
      * @throws \rex_exception
      * @return BeMedia
      */
-    public function beMedia(string $name, string $label = '', array $attributes = []): BeMedia {
+    public function beMedia(string $name, string $label = '', array $attributes = []): BeMedia
+    {
         $value = new BeMedia($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -254,7 +265,8 @@ class Seeder
      * @throws \rex_exception
      * @return ImageList
      */
-    public function imageList(string $name, string $label = '', array $attributes = []): ImageList {
+    public function imageList(string $name, string $label = '', array $attributes = []): ImageList
+    {
         $value = new ImageList($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -269,7 +281,8 @@ class Seeder
      * @throws \rex_exception
      * @return BeTable
      */
-    public function beTable(string $name, string $label = '', array $attributes = []): BeTable {
+    public function beTable(string $name, string $label = '', array $attributes = []): BeTable
+    {
         $value = new BeTable($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -284,7 +297,8 @@ class Seeder
      * @throws \rex_exception
      * @return BeUser
      */
-    public function beUser(string $name, string $label = '', array $attributes = []): BeUser {
+    public function beUser(string $name, string $label = '', array $attributes = []): BeUser
+    {
         $value = new BeUser($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -299,7 +313,8 @@ class Seeder
      * @throws \rex_exception
      * @return Choice
      */
-    public function choice(string $name, string $label = '', array $attributes = []): Choice {
+    public function choice(string $name, string $label = '', array $attributes = []): Choice
+    {
         $value = new Choice($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -314,7 +329,8 @@ class Seeder
      * @throws \rex_exception
      * @return Checkbox
      */
-    public function checkbox(string $name, string $label = '', array $attributes = []): Checkbox {
+    public function checkbox(string $name, string $label = '', array $attributes = []): Checkbox
+    {
         $value = new Checkbox($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -329,7 +345,8 @@ class Seeder
      * @throws \rex_exception
      * @return Date
      */
-    public function date(string $name, string $label = '', array $attributes = []): Date {
+    public function date(string $name, string $label = '', array $attributes = []): Date
+    {
         $value = new Date($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -344,7 +361,8 @@ class Seeder
      * @throws \rex_exception
      * @return DateTime
      */
-    public function dateTime(string $name, string $label = '', array $attributes = []): DateTime {
+    public function dateTime(string $name, string $label = '', array $attributes = []): DateTime
+    {
         $value = new DateTime($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -359,7 +377,8 @@ class Seeder
      * @throws \rex_exception
      * @return Datestamp
      */
-    public function datestamp(string $name, string $label = '', array $attributes = []): Datestamp {
+    public function datestamp(string $name, string $label = '', array $attributes = []): Datestamp
+    {
         $value = new Datestamp($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -374,7 +393,8 @@ class Seeder
      * @throws \rex_exception
      * @return Email
      */
-    public function email(string $name, string $label = '', array $attributes = []): Email {
+    public function email(string $name, string $label = '', array $attributes = []): Email
+    {
         $value = new Email($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -389,7 +409,8 @@ class Seeder
      * @throws \rex_exception
      * @return Value\Integer
      */
-    public function integer(string $name, string $label = '', array $attributes = []): Value\Integer {
+    public function integer(string $name, string $label = '', array $attributes = []): Value\Integer
+    {
         $value = new Integer($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -404,7 +425,8 @@ class Seeder
      * @throws \rex_exception
      * @return Time
      */
-    public function time(string $name, string $label = '', array $attributes = []): Time {
+    public function time(string $name, string $label = '', array $attributes = []): Time
+    {
         $value = new Time($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -419,7 +441,8 @@ class Seeder
      * @throws \rex_exception
      * @return IP
      */
-    public function ip(string $name, string $label = '', array $attributes = []): IP {
+    public function ip(string $name, string $label = '', array $attributes = []): IP
+    {
         $value = new IP($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -434,7 +457,8 @@ class Seeder
      * @throws \rex_exception
      * @return Number
      */
-    public function number(string $name, string $label = '', array $attributes = []): Number {
+    public function number(string $name, string $label = '', array $attributes = []): Number
+    {
         $value = new Number($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -450,7 +474,8 @@ class Seeder
      * @throws \rex_exception
      * @return Prio
      */
-    public function prio(string $name, string $label = '', array $attributes = []): Prio {
+    public function prio(string $name, string $label = '', array $attributes = []): Prio
+    {
         $value = new Prio($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -465,7 +490,8 @@ class Seeder
      * @throws \rex_exception
      * @return Upload
      */
-    public function upload(string $name, string $label = '', array $attributes = []): Upload {
+    public function upload(string $name, string $label = '', array $attributes = []): Upload
+    {
         $value = new Upload($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -480,7 +506,8 @@ class Seeder
      * @throws \rex_exception
      * @return Uuid
      */
-    public function uuid(string $name, string $label = '', array $attributes = []): Uuid {
+    public function uuid(string $name, string $label = '', array $attributes = []): Uuid
+    {
         $value = new Uuid($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -495,7 +522,8 @@ class Seeder
      * @throws \rex_exception
      * @return Html
      */
-    public function html(string $name, string $label = '', array $attributes = []): Html {
+    public function html(string $name, string $label = '', array $attributes = []): Html
+    {
         $value = new Html($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -510,7 +538,8 @@ class Seeder
      * @return ShowValue
      * @throws \rex_exception
      */
-    public function showvalue(string $name, string $label = '', array $attributes = []): ShowValue {
+    public function showvalue(string $name, string $label = '', array $attributes = []): ShowValue
+    {
         $value = new ShowValue($name, $label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -524,7 +553,8 @@ class Seeder
      * @return EmptyValidate
      * @throws \rex_exception
      */
-    public function validateEmpty(string $label = '', array $attributes = []): EmptyValidate {
+    public function validateEmpty(string $label = '', array $attributes = []): EmptyValidate
+    {
         $value = new EmptyValidate($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -538,7 +568,8 @@ class Seeder
      * @return Compare
      * @throws \rex_exception
      */
-    public function validateCompare(string $label = '', array $attributes = []): Compare {
+    public function validateCompare(string $label = '', array $attributes = []): Compare
+    {
         $value = new Compare($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -552,7 +583,8 @@ class Seeder
      * @return CompareValue
      * @throws \rex_exception
      */
-    public function validateCompareValue(string $label = '', array $attributes = []): CompareValue {
+    public function validateCompareValue(string $label = '', array $attributes = []): CompareValue
+    {
         $value = new CompareValue($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -566,7 +598,8 @@ class Seeder
      * @return Type
      * @throws \rex_exception
      */
-    public function validateType(string $label = '', array $attributes = []): Type {
+    public function validateType(string $label = '', array $attributes = []): Type
+    {
         $value = new Type($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -580,7 +613,8 @@ class Seeder
      * @return IntFromTo
      * @throws \rex_exception
      */
-    public function validateIntFromTo(string $label = '', array $attributes = []): IntFromTo {
+    public function validateIntFromTo(string $label = '', array $attributes = []): IntFromTo
+    {
         $value = new IntFromTo($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -594,7 +628,8 @@ class Seeder
      * @return PasswordPolicy
      * @throws \rex_exception
      */
-    public function validatePasswordPolicy(string $label = '', array $attributes = []): PasswordPolicy {
+    public function validatePasswordPolicy(string $label = '', array $attributes = []): PasswordPolicy
+    {
         $value = new PasswordPolicy($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -608,7 +643,8 @@ class Seeder
      * @return PregMatch
      * @throws \rex_exception
      */
-    public function validatePregMatch(string $label = '', array $attributes = []): PregMatch {
+    public function validatePregMatch(string $label = '', array $attributes = []): PregMatch
+    {
         $value = new PregMatch($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -622,7 +658,8 @@ class Seeder
      * @return Size
      * @throws \rex_exception
      */
-    public function validateSize(string $label = '', array $attributes = []): Size {
+    public function validateSize(string $label = '', array $attributes = []): Size
+    {
         $value = new Size($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -636,7 +673,8 @@ class Seeder
      * @return SizeRange
      * @throws \rex_exception
      */
-    public function validateSizeRange(string $label = '', array $attributes = []): SizeRange {
+    public function validateSizeRange(string $label = '', array $attributes = []): SizeRange
+    {
         $value = new SizeRange($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -650,7 +688,8 @@ class Seeder
      * @return Unique
      * @throws \rex_exception
      */
-    public function validateUnique(string $label = '', array $attributes = []): Unique {
+    public function validateUnique(string $label = '', array $attributes = []): Unique
+    {
         $value = new Unique($label, $attributes);
         $this->addAttributes($value->attributes);
         return $value;
@@ -660,7 +699,8 @@ class Seeder
      * @param array|string[] $attributes
      * @return void
      */
-    private function addAttributes(array $attributes): void {
+    private function addAttributes(array $attributes): void
+    {
         $this->fieldAttributes[] = $attributes;
     }
 }

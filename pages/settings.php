@@ -7,7 +7,7 @@ use YformSeeder\Utilities;
 if (rex_post('create_template', 'bool')) {
     $tableName = '';
 
-    if('' !== rex_post('table_name')) {
+    if ('' !== rex_post('table_name')) {
         $tableName = rex_post('table_name', 'string');
     }
 
@@ -68,11 +68,11 @@ $importedTemplates = array_map(static function($template) {return $template['fil
 $notImportedTemplates = [];
 $filePaths = glob($this->getDataPath() . '*.php');
 
-if($filePaths !== false) {
+if ($filePaths !== false) {
     foreach ($filePaths as $filePath) {
         $name = str_replace([$this->getDataPath(), '.php'], ['', ''], $filePath);
 
-        if(in_array($name, $importedTemplates, true)) {
+        if (in_array($name, $importedTemplates, true)) {
             continue;
         }
 
@@ -105,7 +105,7 @@ $infoContent = '<div class="row">';
     $infoContent .= '</div>';
 $infoContent .= '</div>';
 
-if(count($importedTemplates) !== 0 || count($notImportedTemplates) !== 0) {
+if (count($importedTemplates) !== 0 || count($notImportedTemplates) !== 0) {
     $fragment = new rex_fragment();
     $fragment->setVar('class', 'info');
     $fragment->setVar('body', $infoContent, false);

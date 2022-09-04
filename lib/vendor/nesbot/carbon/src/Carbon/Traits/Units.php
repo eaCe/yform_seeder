@@ -40,7 +40,6 @@ trait Units
         switch ($unit) {
             // @call addRealUnit
             case 'micro':
-
             // @call addRealUnit
             case 'microsecond':
                 /* @var CarbonInterface $this */

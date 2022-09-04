@@ -113,7 +113,8 @@ class XliffUtils
         $errorsAsString = '';
 
         foreach ($xmlErrors as $error) {
-            $errorsAsString .= sprintf("[%s %s] %s (in %s - line %d, column %d)\n",
+            $errorsAsString .= sprintf(
+                "[%s %s] %s (in %s - line %d, column %d)\n",
                 \LIBXML_ERR_WARNING === $error['level'] ? 'WARNING' : 'ERROR',
                 $error['code'],
                 $error['message'],

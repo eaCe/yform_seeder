@@ -8,10 +8,11 @@ class Utilities
      * @param string $path
      * @return void
      */
-    public static function migrate(string $path): void {
+    public static function migrate(string $path): void
+    {
         $filePath = glob($path);
 
-        if($filePath !== false) {
+        if ($filePath !== false) {
             foreach ($filePath as $file) {
                 include_once $file;
             }
@@ -23,7 +24,8 @@ class Utilities
      * @param string $string
      * @return string
      */
-    public static function normalize(string $string): string {
+    public static function normalize(string $string): string
+    {
         return \rex_string::normalize($string);
     }
 
@@ -32,7 +34,8 @@ class Utilities
      * @param string $string
      * @return string
      */
-    public static function sanitize(string $string): string {
+    public static function sanitize(string $string): string
+    {
         $filtered = filter_var($string, FILTER_SANITIZE_STRING);
 
         if ($filtered === false) {
@@ -47,11 +50,13 @@ class Utilities
      * @param string $string
      * @return string
      */
-    public static function sanitizeHtml(string $string): string {
+    public static function sanitizeHtml(string $string): string
+    {
         return \rex_string::sanitizeHtml($string);
     }
 
-    private static function getAddon(): \rex_addon_interface {
+    private static function getAddon(): \rex_addon_interface
+    {
         return \rex_addon::get('yform_seeder');
     }
 
@@ -60,17 +65,18 @@ class Utilities
      * @param string $tableName
      * @return bool
      */
-    private static function fileExists(string $tableName): bool {
+    private static function fileExists(string $tableName): bool
+    {
         $addon = self::getAddon();
         $filePaths = glob($addon->getDataPath() . '*.php');
 
-        if($filePaths !== false) {
+        if ($filePaths !== false) {
             foreach ($filePaths as $filePath) {
                 $name  = basename($filePath);
                 $nameParts = explode('_', $name);
                 $name = str_replace([$nameParts[0] . '_', '.php'], ['', ''], $name);
 
-                if($tableName === $name) {
+                if ($tableName === $name) {
                     return true;
                 }
             }
@@ -84,7 +90,8 @@ class Utilities
      * @param string $name
      * @return void
      */
-    public static function createFile(string $name): void {
+    public static function createFile(string $name): void
+    {
         $addon = self::getAddon();
         $tableName = \rex::getTable(self::normalize(self::sanitize($name)));
         $fileName = time() . '_' . $tableName . '.php';
@@ -92,12 +99,12 @@ class Utilities
         $templateFileContents = \rex_file::get($addon->getPath('data/template.php'));
         $templateFileContents = str_replace('###tablename###', $tableName, $templateFileContents);
 
-        if('' === $name) {
+        if ('' === $name) {
             echo \rex_view::error($addon->i18n('table_name_empty'));
             return;
         }
 
-        if(self::fileExists($tableName)) {
+        if (self::fileExists($tableName)) {
             echo \rex_view::error($addon->i18n('table_name_exists', $tableName));
             return;
         }
@@ -116,7 +123,8 @@ class Utilities
      * @return void
      * @throws \rex_sql_exception
      */
-    public static function importTemplates(): void {
+    public static function importTemplates(): void
+    {
         $addon = self::getAddon();
         foreach (glob($addon->getDataPath() . '*.php') as $filePath) {
             $name = str_replace([$addon->getDataPath(), '.php'], ['', ''], $filePath);
@@ -126,7 +134,7 @@ class Utilities
             $sql->setWhere('`file` = :name', ['name' => $name]);
             $sql->select();
 
-            if($sql->getRows() !== 0) {
+            if ($sql->getRows() !== 0) {
                 include_once $filePath;
 
                 $sql = \rex_sql::factory();

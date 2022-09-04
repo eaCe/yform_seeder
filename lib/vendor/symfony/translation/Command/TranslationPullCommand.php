@@ -140,9 +140,11 @@ EOF
         }
 
         switch ($format) {
-            case 'xlf20': $xliffVersion = '2.0';
+            case 'xlf20':
+                $xliffVersion = '2.0';
             // no break
-            case 'xlf12': $format = 'xlf';
+            case 'xlf12':
+                $format = 'xlf';
         }
 
         $writeOptions = [

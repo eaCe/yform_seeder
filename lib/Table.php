@@ -33,7 +33,8 @@ class Table
      * @throws \JsonException
      * @throws \rex_sql_exception
      */
-    public static function create(string $tableName, string $name, array $tableAttributes = []): void {
+    public static function create(string $tableName, string $name, array $tableAttributes = []): void
+    {
         $tableAttributes['table_name'] = Utilities::normalize(Utilities::sanitize($tableName));
         $tableAttributes['name'] = Utilities::sanitize($name);
 
@@ -54,7 +55,8 @@ class Table
      * @return void
      * @throws \rex_sql_exception
      */
-    private static function installTableSet(string $tableSet): void {
+    private static function installTableSet(string $tableSet): void
+    {
         \rex_yform_manager_table_api::importTablesets($tableSet);
     }
 }

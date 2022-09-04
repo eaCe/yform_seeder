@@ -42,14 +42,15 @@ class EmptyValidate extends Validate
      * @return void
      * @throws \rex_exception
      */
-    protected function createValidationField(): void {
+    protected function createValidationField(): void
+    {
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if(!in_array($this->attributes['type'], $this->allowedValidationTypes, true)) {
+        if (!in_array($this->attributes['type'], $this->allowedValidationTypes, true)) {
             $this->throwGenericNotSupportedException($this->attributes['type'], 'type');
         }
 
-        if(!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
+        if (!in_array($this->attributes['db_type'], $this->allowedTypes, true)) {
             $this->throwTypeNotSupportedException($this->attributes['db_type']);
         }
     }
