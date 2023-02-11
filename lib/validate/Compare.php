@@ -2,12 +2,16 @@
 
 namespace YformSeeder\Validate;
 
+use rex_exception;
+
+use function in_array;
+
 /**
  * Empty seems to be reserved...
  */
 class Compare extends Validate
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'compare',
@@ -17,12 +21,12 @@ class Compare extends Validate
         'name2' => '',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         '',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedCompareTypes = [
         '!=',
         '<',
@@ -33,19 +37,18 @@ class Compare extends Validate
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValidationField(): void
     {
         $this->attributes = array_merge($this->fieldAttributes, $this->attributes);
 
-        if ($this->attributes['name'] === '') {
+        if ('' === $this->attributes['name']) {
             $this->throwRequiredException('name');
         }
 
-        if ($this->attributes['name2'] === '') {
+        if ('' === $this->attributes['name2']) {
             $this->throwRequiredException('name2');
         }
 

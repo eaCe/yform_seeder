@@ -2,12 +2,16 @@
 
 namespace YformSeeder\Validate;
 
+use rex_exception;
+
+use function in_array;
+
 /**
  * Empty seems to be reserved...
  */
 class SizeRange extends Validate
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'size_range',
@@ -18,15 +22,14 @@ class SizeRange extends Validate
         'max' => '',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         '',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValidationField(): void
     {

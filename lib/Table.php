@@ -2,9 +2,13 @@
 
 namespace YformSeeder;
 
+use JsonException;
+use rex_sql_exception;
+use rex_yform_manager_table_api;
+
 class Table
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private static array $attributes = [
         'status' => '1',
         'table_name' => '',
@@ -21,17 +25,14 @@ class Table
         'mass_deletion' => '0',
         'mass_edit' => '0',
         'schema_overwrite' => '0',
-        'history' => '0'
+        'history' => '0',
     ];
 
     /**
-     * create a new table set and import/install it
-     * @param string $tableName
-     * @param string $name
+     * create a new table set and import/install it.
      * @param array|string[] $tableAttributes
-     * @return void
-     * @throws \JsonException
-     * @throws \rex_sql_exception
+     * @throws JsonException
+     * @throws rex_sql_exception
      */
     public static function create(string $tableName, string $name, array $tableAttributes = []): void
     {
@@ -43,20 +44,18 @@ class Table
             $tableAttributes['table_name'] => [
                 'table' => $tableAttributes,
                 'fields' => [],
-            ]
+            ],
         ];
 
         self::installTableSet(json_encode($tableSet, JSON_THROW_ON_ERROR));
     }
 
     /**
-     * import/install the given table set
-     * @param string $tableSet
-     * @return void
-     * @throws \rex_sql_exception
+     * import/install the given table set.
+     * @throws rex_sql_exception
      */
     private static function installTableSet(string $tableSet): void
     {
-        \rex_yform_manager_table_api::importTablesets($tableSet);
+        rex_yform_manager_table_api::importTablesets($tableSet);
     }
 }

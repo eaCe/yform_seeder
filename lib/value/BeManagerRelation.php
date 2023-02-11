@@ -2,9 +2,13 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class BeManagerRelation extends Value
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'be_manager_relation',
@@ -15,7 +19,7 @@ class BeManagerRelation extends Value
         'empty_option' => '0',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'text',
         'varchar(191)',
@@ -23,9 +27,8 @@ class BeManagerRelation extends Value
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

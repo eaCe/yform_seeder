@@ -2,9 +2,12 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class IP extends Value
 {
-    /** @var array  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'ip',
@@ -12,16 +15,15 @@ class IP extends Value
         'no_db' => 0,
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'text',
         'varchar(191)',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

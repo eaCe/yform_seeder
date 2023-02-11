@@ -2,9 +2,12 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class BeMedia extends Value
 {
-    /** @var array  */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'be_media',
@@ -15,15 +18,14 @@ class BeMedia extends Value
         'preview' => 0,
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'text',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

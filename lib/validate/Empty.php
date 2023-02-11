@@ -2,12 +2,16 @@
 
 namespace YformSeeder\Validate;
 
+use rex_exception;
+
+use function in_array;
+
 /**
  * Empty seems to be reserved...
  */
 class EmptyValidate extends Validate
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'validate',
         'type_name' => 'empty',
@@ -17,12 +21,12 @@ class EmptyValidate extends Validate
         'type' => 'int',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         '',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedValidationTypes = [
         'int',
         'float',
@@ -38,9 +42,8 @@ class EmptyValidate extends Validate
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValidationField(): void
     {

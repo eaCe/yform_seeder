@@ -2,24 +2,27 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class Checkbox extends Value
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'checkbox',
         'db_type' => 'tinyint(1)',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'tinyint(1)',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

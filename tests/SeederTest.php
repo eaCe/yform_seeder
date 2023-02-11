@@ -1,25 +1,26 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Carbon\Carbon;
-use YformSeeder\Table;
 use YformSeeder\Seeder;
 use YformSeeder\Utilities;
 
+/**
+ * @internal
+ */
 final class SeederTest extends TestCase
 {
     protected static string $tableName;
 
-    /**
-     * @return void
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$tableName = 'rex_seeder_unittest';
     }
 
+    protected function tearDown(): void
+    {
+    }
+
     /**
-     * @return void
      * @throws rex_sql_exception
      */
     public function testEmptyTableName(): void
@@ -30,42 +31,31 @@ final class SeederTest extends TestCase
         $seeder->create();
     }
 
-    /**
-     * @return void
-     */
     public function testNormalizeUtility(): void
     {
         $string = Utilities::normalize(123456789);
 
-        self::assertIsString($string);
+        static::assertIsString($string);
     }
 
-    /**
-     * @return void
-     */
     public function testDoNotCreateFileUtility(): void
     {
         // disable/hide echo
-        $this->setOutputCallback(static function () {});
+        $this->setOutputCallback(static function () {
+        });
         $file = Utilities::createFile('');
 
-        self::assertFalse($file);
+        static::assertFalse($file);
     }
 
-    /**
-     * @return void
-     */
     public function testFileExistsCreateFileUtility(): void
     {
         // disable/hide echo
-        $this->setOutputCallback(static function () {});
+        $this->setOutputCallback(static function () {
+        });
         Utilities::createFile('empty_unittest');
         $file = Utilities::createFile('empty_unittest');
 
-        self::assertFalse($file);
-    }
-
-    public function tearDown(): void
-    {
+        static::assertFalse($file);
     }
 }

@@ -2,26 +2,28 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
 use YformSeeder\Utilities;
+
+use function in_array;
 
 class Html extends Value
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'html',
         'db_type' => 'none',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'none',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {
@@ -33,9 +35,7 @@ class Html extends Value
     }
 
     /**
-     * set html value
-     * @param string $html
-     * @return void
+     * set html value.
      */
     public function set(string $html): void
     {

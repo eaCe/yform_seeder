@@ -2,6 +2,7 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
 use YformSeeder\Utilities;
 
 class Value
@@ -13,10 +14,7 @@ class Value
     ];
 
     /**
-     * @param string $name
-     * @param string $label
-     * @param array $attributes
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function __construct(string $name, string $label = '', array $attributes = [])
     {
@@ -27,17 +25,15 @@ class Value
     }
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {
     }
 
     /**
-     * show field in list
-     * @return void
+     * show field in list.
      */
     public function showInList(): void
     {
@@ -45,8 +41,7 @@ class Value
     }
 
     /**
-     * show field in search
-     * @return void
+     * show field in search.
      */
     public function showInSearch(): void
     {
@@ -54,26 +49,26 @@ class Value
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwTypeNotSupportedException(string $type = ''): void
     {
-        throw new \rex_exception('db_type ' . $type . ' not supported for ' . $this->attributes['name']);
+        throw new rex_exception('db_type ' . $type . ' not supported for ' . $this->attributes['name']);
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwGenericNotSupportedException(string $type, string $attributeName): void
     {
-        throw new \rex_exception($type . ' not supported for ' . $attributeName);
+        throw new rex_exception($type . ' not supported for ' . $attributeName);
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwRequiredException(string $attributeName): void
     {
-        throw new \rex_exception($attributeName . ' is required!');
+        throw new rex_exception($attributeName . ' is required!');
     }
 }

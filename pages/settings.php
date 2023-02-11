@@ -23,7 +23,7 @@ $content = '';
 $formElements = [];
 
 /**
- * misc
+ * misc.
  */
 $inputGroups = [];
 $n = [];
@@ -64,11 +64,13 @@ echo '
 $sql = rex_sql::factory();
 $sql->setTable(rex::getTable($this->getName()));
 $templatesQuery = $sql->select('file as file')->getArray();
-$importedTemplates = array_map(static function($template) {return $template['file'];}, $templatesQuery);
+$importedTemplates = array_map(static function ($template) {
+    return $template['file'];
+}, $templatesQuery);
 $notImportedTemplates = [];
 $filePaths = glob($this->getDataPath() . '*.php');
 
-if ($filePaths !== false) {
+if (false !== $filePaths) {
     foreach ($filePaths as $filePath) {
         $name = str_replace([$this->getDataPath(), '.php'], ['', ''], $filePath);
 
@@ -81,31 +83,31 @@ if ($filePaths !== false) {
 }
 
 $infoContent = '<div class="row">';
-    $infoContent .= '<div class="col-lg-6">';
-    if (count($importedTemplates) !== 0) {
-        $infoContent .= '<table class="table table-striped">';
-        $infoContent .= '<thead><tr><th>' . $this->i18n('imported_templates') . '</th></th></thead>';
-        $infoContent .= '<tbody>';
-        foreach ($importedTemplates as $template) {
-            $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
-        }
-        $infoContent .= '</tbody></table>';
+$infoContent .= '<div class="col-lg-6">';
+if (0 !== count($importedTemplates)) {
+    $infoContent .= '<table class="table table-striped">';
+    $infoContent .= '<thead><tr><th>' . $this->i18n('imported_templates') . '</th></th></thead>';
+    $infoContent .= '<tbody>';
+    foreach ($importedTemplates as $template) {
+        $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
     }
-    $infoContent .= '</div>';
-    $infoContent .= '<div class="col-lg-6">';
-    if (count($notImportedTemplates) !== 0) {
-        $infoContent .= '<table class="table table-striped">';
-        $infoContent .= '<thead><tr><th>' . $this->i18n('yform_seeder_not_imported_templates') . '</th></th></thead>';
-        $infoContent .= '<tbody>';
-        foreach ($notImportedTemplates as $template) {
-            $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
-        }
-        $infoContent .= '</tbody></table>';
+    $infoContent .= '</tbody></table>';
+}
+$infoContent .= '</div>';
+$infoContent .= '<div class="col-lg-6">';
+if (0 !== count($notImportedTemplates)) {
+    $infoContent .= '<table class="table table-striped">';
+    $infoContent .= '<thead><tr><th>' . $this->i18n('yform_seeder_not_imported_templates') . '</th></th></thead>';
+    $infoContent .= '<tbody>';
+    foreach ($notImportedTemplates as $template) {
+        $infoContent .= '<tr><td>' . $template . '.php</td></tr>';
     }
-    $infoContent .= '</div>';
+    $infoContent .= '</tbody></table>';
+}
+$infoContent .= '</div>';
 $infoContent .= '</div>';
 
-if (count($importedTemplates) !== 0 || count($notImportedTemplates) !== 0) {
+if (0 !== count($importedTemplates) || 0 !== count($notImportedTemplates)) {
     $fragment = new rex_fragment();
     $fragment->setVar('class', 'info');
     $fragment->setVar('body', $infoContent, false);

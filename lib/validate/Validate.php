@@ -2,6 +2,7 @@
 
 namespace YformSeeder\Validate;
 
+use rex_exception;
 use YformSeeder\Utilities;
 
 class Validate
@@ -13,9 +14,7 @@ class Validate
     ];
 
     /**
-     * @param string $label
-     * @param array $attributes
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function __construct(string $label = '', array $attributes = [])
     {
@@ -25,35 +24,34 @@ class Validate
     }
 
     /**
-     * create validation field
-     * @return void
-     * @throws \rex_exception
+     * create validation field.
+     * @throws rex_exception
      */
     protected function createValidationField(): void
     {
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwTypeNotSupportedException(string $type = ''): void
     {
-        throw new \rex_exception('db_type ' . $type . ' not supported for ' . $this->attributes['name']);
+        throw new rex_exception('db_type ' . $type . ' not supported for ' . $this->attributes['name']);
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwGenericNotSupportedException(string $type, string $attributeName): void
     {
-        throw new \rex_exception($type . ' not supported for ' . $attributeName);
+        throw new rex_exception($type . ' not supported for ' . $attributeName);
     }
 
     /**
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function throwRequiredException(string $attributeName): void
     {
-        throw new \rex_exception($attributeName . ' is required!');
+        throw new rex_exception($attributeName . ' is required!');
     }
 }

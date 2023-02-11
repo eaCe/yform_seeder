@@ -2,6 +2,10 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class Date extends Value
 {
     private array $fieldAttributes = [
@@ -16,9 +20,8 @@ class Date extends Value
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

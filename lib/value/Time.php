@@ -2,6 +2,10 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class Time extends Value
 {
     private array $fieldAttributes = [
@@ -14,15 +18,14 @@ class Time extends Value
         'current_time' => 0,
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'time',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     public function createValueField(): void
     {

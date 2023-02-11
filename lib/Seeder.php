@@ -2,6 +2,15 @@
 
 namespace YformSeeder;
 
+use PDO;
+use rex;
+use rex_exception;
+use rex_sql;
+use rex_sql_column;
+use rex_sql_exception;
+use rex_sql_table;
+use rex_yform_manager_table;
+use rex_yform_manager_table_api;
 use YformSeeder\Validate\Compare;
 use YformSeeder\Validate\CompareValue;
 use YformSeeder\Validate\EmptyValidate;
@@ -36,19 +45,19 @@ use YformSeeder\Value\Time;
 use YformSeeder\Value\Upload;
 use YformSeeder\Value\Uuid;
 
+use function count;
+use function is_int;
+
 class Seeder
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [];
     private ?string $lastInsertedColumnName = null;
     /**
-     * the table name
+     * the table name.
      */
     private string $name;
 
-    /**
-     * @param string $name
-     */
     public function __construct(string $name)
     {
         $this->name = Utilities::normalize(Utilities::sanitize($name));
@@ -56,21 +65,20 @@ class Seeder
 
     /**
      * @param string $tableName the table name
-     * @return Seeder
      */
-    public static function factory(string $tableName): Seeder
+    public static function factory(string $tableName): self
     {
         return new self($tableName);
     }
 
     /**
+     * @throws rex_exception
      * @return void
-     * @throws \rex_exception
      */
     public function create()
     {
-        if ($this->name === '') {
-            throw new \rex_exception('You must provide a table name');
+        if ('' === $this->name) {
+            throw new rex_exception('You must provide a table name');
         }
 
         foreach ($this->fieldAttributes as $attributes) {
@@ -79,10 +87,9 @@ class Seeder
     }
 
     /**
-     * create a new value field
+     * create a new value field.
      * @param array|string[] $attributes
-     * @return void
-     * @throws \rex_sql_exception
+     * @throws rex_sql_exception
      */
     private function insert(array $attributes): void
     {
@@ -91,80 +98,77 @@ class Seeder
     }
 
     /**
-     * create a new value field
+     * create a new value field.
      * @param array|string[] $attributes
-     * @return void
-     * @throws \rex_sql_exception
+     * @throws rex_sql_exception
      */
     private function insertField(array $attributes): void
     {
-        if ($attributes['db_type'] === 'none' || $attributes['db_type'] === '' || $attributes['type_id'] === 'validate') {
+        if ('none' === $attributes['db_type'] || '' === $attributes['db_type'] || 'validate' === $attributes['type_id']) {
             return;
         }
 
-        $sql = \rex_sql::factory();
+        $sql = rex_sql::factory();
 
         $query = 'SHOW COLUMNS FROM ' . $this->name . ' LIKE "' . $attributes['name'] . '"';
         $fieldCount = $sql->setQuery($query)->getRows();
 
         /** field already exists - return early */
-        if ($fieldCount === 0) {
+        if (0 === $fieldCount) {
             return;
         }
 
         $after = null;
 
-        if ($this->lastInsertedColumnName !== '') {
+        if ('' !== $this->lastInsertedColumnName) {
             $after = $this->lastInsertedColumnName;
         }
 
-        \rex_sql_table::get($this->name)
-            ->ensureColumn(new \rex_sql_column($attributes['name'], $attributes['db_type']), $after)
+        rex_sql_table::get($this->name)
+            ->ensureColumn(new rex_sql_column($attributes['name'], $attributes['db_type']), $after)
             ->ensure();
 
         $this->lastInsertedColumnName = $attributes['name'];
     }
 
     /**
-     * create a new value field
+     * create a new value field.
      * @param array|string[] $attributes
-     * @return void
-     * @throws \rex_sql_exception
+     * @throws rex_sql_exception
      */
     private function insertYFormField($attributes): void
     {
-        $yformTable = \rex::getTable('yform_field');
-        $sql = \rex_sql::factory();
+        $yformTable = rex::getTable('yform_field');
+        $sql = rex_sql::factory();
         $attributes['table_name'] = $this->name;
         $fieldId = null;
 
-        if ($attributes['type_id'] === 'value') {
+        if ('value' === $attributes['type_id']) {
             $query = 'SELECT id FROM ' . $yformTable;
             $query .= ' WHERE name = ? AND table_name = ? AND type_id = ?';
-            $fieldId = $sql->getArray($query, [$attributes['name'], $this->name, $attributes['type_id']], \PDO::FETCH_COLUMN);
+            $fieldId = $sql->getArray($query, [$attributes['name'], $this->name, $attributes['type_id']], PDO::FETCH_COLUMN);
         }
 
         $prio = $sql->getArray('SELECT MAX(prio) AS max FROM ' . $yformTable . ' WHERE table_name = ?', [$this->name]);
 
         /** set field prio */
-        if (count($prio) !== 0 && is_int($prio[0]['max'])) {
+        if (0 !== count($prio) && is_int($prio[0]['max'])) {
             $prio = $prio[0]['max'] + 1;
-        }
-        else {
+        } else {
             $prio = 0;
         }
 
         /** field already exists - return early */
-        if ($fieldId !== null) {
+        if (null !== $fieldId) {
             return;
         }
 
         $attributes['prio'] = $prio;
 
         /**
-         * create missing columns
+         * create missing columns.
          */
-        \rex_yform_manager_table_api::createMissingFieldColumns($attributes);
+        rex_yform_manager_table_api::createMissingFieldColumns($attributes);
 
         $sql->setTable($yformTable);
 
@@ -173,17 +177,14 @@ class Seeder
         }
 
         $sql->insert();
-        \rex_yform_manager_table::deleteCache();
+        rex_yform_manager_table::deleteCache();
     }
 
     /**
-     * create a text value field
+     * create a text value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Text
+     * @throws rex_exception
      */
     public function text(string $name, string $label = '', array $attributes = []): Text
     {
@@ -193,13 +194,10 @@ class Seeder
     }
 
     /**
-     * create a textarea value field
+     * create a textarea value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return TextArea
+     * @throws rex_exception
      */
     public function textarea(string $name, string $label = '', array $attributes = []): TextArea
     {
@@ -209,13 +207,10 @@ class Seeder
     }
 
     /**
-     * create a be_link value field
+     * create a be_link value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return BeLink
+     * @throws rex_exception
      */
     public function beLink(string $name, string $label = '', array $attributes = []): BeLink
     {
@@ -225,13 +220,10 @@ class Seeder
     }
 
     /**
-     * create a be_link value field
+     * create a be_link value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return BeManagerRelation
+     * @throws rex_exception
      */
     public function beManagerRelation(string $name, string $label = '', array $attributes = []): BeManagerRelation
     {
@@ -241,13 +233,10 @@ class Seeder
     }
 
     /**
-     * create a be_media value field
+     * create a be_media value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return BeMedia
+     * @throws rex_exception
      */
     public function beMedia(string $name, string $label = '', array $attributes = []): BeMedia
     {
@@ -257,13 +246,10 @@ class Seeder
     }
 
     /**
-     * create a imagelist value field
+     * create a imagelist value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return ImageList
+     * @throws rex_exception
      */
     public function imageList(string $name, string $label = '', array $attributes = []): ImageList
     {
@@ -273,13 +259,10 @@ class Seeder
     }
 
     /**
-     * create a be_table value field
+     * create a be_table value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return BeTable
+     * @throws rex_exception
      */
     public function beTable(string $name, string $label = '', array $attributes = []): BeTable
     {
@@ -289,13 +272,10 @@ class Seeder
     }
 
     /**
-     * create a be_user value field
+     * create a be_user value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return BeUser
+     * @throws rex_exception
      */
     public function beUser(string $name, string $label = '', array $attributes = []): BeUser
     {
@@ -305,13 +285,10 @@ class Seeder
     }
 
     /**
-     * create a choice value field
+     * create a choice value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Choice
+     * @throws rex_exception
      */
     public function choice(string $name, string $label = '', array $attributes = []): Choice
     {
@@ -321,13 +298,10 @@ class Seeder
     }
 
     /**
-     * create a checkbox value field
+     * create a checkbox value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Checkbox
+     * @throws rex_exception
      */
     public function checkbox(string $name, string $label = '', array $attributes = []): Checkbox
     {
@@ -337,13 +311,10 @@ class Seeder
     }
 
     /**
-     * create a date value field
+     * create a date value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Date
+     * @throws rex_exception
      */
     public function date(string $name, string $label = '', array $attributes = []): Date
     {
@@ -353,13 +324,10 @@ class Seeder
     }
 
     /**
-     * create a datetime value field
+     * create a datetime value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return DateTime
+     * @throws rex_exception
      */
     public function dateTime(string $name, string $label = '', array $attributes = []): DateTime
     {
@@ -369,13 +337,10 @@ class Seeder
     }
 
     /**
-     * create a datestamp value field
+     * create a datestamp value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Datestamp
+     * @throws rex_exception
      */
     public function datestamp(string $name, string $label = '', array $attributes = []): Datestamp
     {
@@ -385,13 +350,10 @@ class Seeder
     }
 
     /**
-     * create a email value field
+     * create a email value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Email
+     * @throws rex_exception
      */
     public function email(string $name, string $label = '', array $attributes = []): Email
     {
@@ -401,13 +363,10 @@ class Seeder
     }
 
     /**
-     * create a int value field
+     * create a int value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Value\Integer
+     * @throws rex_exception
      */
     public function integer(string $name, string $label = '', array $attributes = []): Value\Integer
     {
@@ -417,13 +376,10 @@ class Seeder
     }
 
     /**
-     * create a time value field
+     * create a time value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Time
+     * @throws rex_exception
      */
     public function time(string $name, string $label = '', array $attributes = []): Time
     {
@@ -433,13 +389,10 @@ class Seeder
     }
 
     /**
-     * create a ip value field
+     * create a ip value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return IP
+     * @throws rex_exception
      */
     public function ip(string $name, string $label = '', array $attributes = []): IP
     {
@@ -449,13 +402,10 @@ class Seeder
     }
 
     /**
-     * create a number value field
+     * create a number value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Number
+     * @throws rex_exception
      */
     public function number(string $name, string $label = '', array $attributes = []): Number
     {
@@ -464,15 +414,11 @@ class Seeder
         return $value;
     }
 
-
     /**
-     * create a prio value field
+     * create a prio value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Prio
+     * @throws rex_exception
      */
     public function prio(string $name, string $label = '', array $attributes = []): Prio
     {
@@ -482,13 +428,10 @@ class Seeder
     }
 
     /**
-     * create a upload value field
+     * create a upload value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Upload
+     * @throws rex_exception
      */
     public function upload(string $name, string $label = '', array $attributes = []): Upload
     {
@@ -498,13 +441,10 @@ class Seeder
     }
 
     /**
-     * create a uuid value field
+     * create a uuid value field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Uuid
+     * @throws rex_exception
      */
     public function uuid(string $name, string $label = '', array $attributes = []): Uuid
     {
@@ -514,13 +454,10 @@ class Seeder
     }
 
     /**
-     * create a html field
+     * create a html field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @throws \rex_exception
-     * @return Html
+     * @throws rex_exception
      */
     public function html(string $name, string $label = '', array $attributes = []): Html
     {
@@ -530,13 +467,10 @@ class Seeder
     }
 
     /**
-     * create a showvalue field
+     * create a showvalue field.
      *
-     * @param string $name
-     * @param string $label
      * @param array|string[] $attributes
-     * @return ShowValue
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function showvalue(string $name, string $label = '', array $attributes = []): ShowValue
     {
@@ -546,12 +480,10 @@ class Seeder
     }
 
     /**
-     * create a empty validation field
+     * create a empty validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return EmptyValidate
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateEmpty(string $label = '', array $attributes = []): EmptyValidate
     {
@@ -561,12 +493,10 @@ class Seeder
     }
 
     /**
-     * create a compare validation field
+     * create a compare validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return Compare
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateCompare(string $label = '', array $attributes = []): Compare
     {
@@ -576,12 +506,10 @@ class Seeder
     }
 
     /**
-     * create a compare value validation field
+     * create a compare value validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return CompareValue
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateCompareValue(string $label = '', array $attributes = []): CompareValue
     {
@@ -591,12 +519,10 @@ class Seeder
     }
 
     /**
-     * create a type validation field
+     * create a type validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return Type
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateType(string $label = '', array $attributes = []): Type
     {
@@ -606,12 +532,10 @@ class Seeder
     }
 
     /**
-     * create a int from to validation field
+     * create a int from to validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return IntFromTo
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateIntFromTo(string $label = '', array $attributes = []): IntFromTo
     {
@@ -621,12 +545,10 @@ class Seeder
     }
 
     /**
-     * create a password policy validation field
+     * create a password policy validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return PasswordPolicy
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validatePasswordPolicy(string $label = '', array $attributes = []): PasswordPolicy
     {
@@ -636,12 +558,10 @@ class Seeder
     }
 
     /**
-     * create a preg match validation field
+     * create a preg match validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return PregMatch
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validatePregMatch(string $label = '', array $attributes = []): PregMatch
     {
@@ -651,12 +571,10 @@ class Seeder
     }
 
     /**
-     * create a size validation field
+     * create a size validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return Size
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateSize(string $label = '', array $attributes = []): Size
     {
@@ -666,12 +584,10 @@ class Seeder
     }
 
     /**
-     * create a preg match validation field
+     * create a preg match validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return SizeRange
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateSizeRange(string $label = '', array $attributes = []): SizeRange
     {
@@ -681,12 +597,10 @@ class Seeder
     }
 
     /**
-     * create a preg match validation field
+     * create a preg match validation field.
      *
-     * @param string $label
      * @param array|string[] $attributes
-     * @return Unique
-     * @throws \rex_exception
+     * @throws rex_exception
      */
     public function validateUnique(string $label = '', array $attributes = []): Unique
     {
@@ -697,7 +611,6 @@ class Seeder
 
     /**
      * @param array|string[] $attributes
-     * @return void
      */
     private function addAttributes(array $attributes): void
     {

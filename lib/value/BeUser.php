@@ -2,6 +2,10 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
+use function in_array;
+
 class BeUser extends Value
 {
     private array $fieldAttributes = [
@@ -12,15 +16,14 @@ class BeUser extends Value
         'show_value' => 0,
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'varchar(191)',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

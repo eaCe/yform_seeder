@@ -2,27 +2,28 @@
 
 namespace YformSeeder\Value;
 
-use YformSeeder\Utilities;
+use rex_exception;
+
+use function in_array;
 
 class ShowValue extends Value
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'showvalue',
         'db_type' => 'none',
     ];
 
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $allowedTypes = [
         'varchar(191)',
         'text',
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     protected function createValueField(): void
     {

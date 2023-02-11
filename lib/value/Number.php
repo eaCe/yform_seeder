@@ -2,9 +2,11 @@
 
 namespace YformSeeder\Value;
 
+use rex_exception;
+
 class Number extends Value
 {
-    /** @var array|string[]  */
+    /** @var array|string[] */
     private array $fieldAttributes = [
         'type_id' => 'value',
         'type_name' => 'number',
@@ -12,9 +14,8 @@ class Number extends Value
     ];
 
     /**
-     * create value field
-     * @return void
-     * @throws \rex_exception
+     * create value field.
+     * @throws rex_exception
      */
     public function createValueField(): void
     {
