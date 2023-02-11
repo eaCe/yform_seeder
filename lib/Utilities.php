@@ -40,7 +40,7 @@ class Utilities
      */
     public static function sanitize(string $string): string
     {
-        $filtered = filter_var($string, FILTER_SANITIZE_STRING);
+        $filtered = htmlspecialchars($string);
 
         if (false === $filtered) {
             return '';
