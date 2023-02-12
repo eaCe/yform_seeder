@@ -5,25 +5,28 @@ author: eaCe
 supportpage: https://github.com/eace/yform_seeder
 
 requires:
-  redaxo: ^5.12.0
-  php:
-    version: '>=7.4'
+    redaxo: ^5.12.0
+    php:
+        version: '>=7.4'
 
 page:
-  title: translate:title
-  perm: admin
-  icon: rex-icon fa-space-shuttle
-  subpages:
-    settings: { title: translate:settings }
+    title: translate:title
+    perm: admin
+    icon: rex-icon fa-space-shuttle
+    subpages:
+        settings: { title: translate:settings }
+        gui_table: { title: translate:gui_table }
+#        gui_seeder: { title: translate:gui_seeder }
 
 installer_ignore:
-  - node_modules
-  - .git
-  - .gitignore
-  - .github
-  - package.json
-  - yarn.lock
-  - resources
-  - .editorconfig
-  - .eslintrc.js
-  - .stylelintrc.js
+    - node_modules
+    - .git
+    - .gitignore
+    - .github
+    - package.json
+    - yarn.lock
+    - resources
+    - .editorconfig
+    - .eslintrc.js
+    - .stylelintrc.js
+    - vendor

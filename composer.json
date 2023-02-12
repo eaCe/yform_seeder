@@ -9,6 +9,7 @@
         "redaxo/php-cs-fixer-config": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.14",
         "phpunit/phpunit": "^9.5",
-        "psr/log": "1.1.4"
+        "psr/log": "1.1.4",
+        "symfony/console": "5.4"
     }
 }
