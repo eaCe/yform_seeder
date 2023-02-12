@@ -7,7 +7,9 @@ use rex_autoload;
 
 use rex_exception;
 
+use rex_sql;
 use rex_sql_exception;
+
 use rex_yform_base_abstract;
 
 use rex_yform_manager_table;
@@ -120,5 +122,21 @@ class GUI
             $seeder->{$prefix . $field->field_name}($field->name, $field->label, $attributes);
             $seeder->create();
         }
+    }
+
+    /**
+     * @throws rex_sql_exception
+     */
+    public static function getTablesArray(): array
+    {
+        $sql = rex_sql::factory();
+        $sql->setTable(rex_yform_manager_table::table());
+        $sql->select('id, table_name, name');
+
+        if ($sql->getRows()) {
+            return $sql->getArray();
+        }
+
+        return [];
     }
 }

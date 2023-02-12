@@ -18,7 +18,6 @@ class rex_api_yform_seeder extends rex_api_function
         }
 
         $create = rex_post('create', 'bool');
-
         if ($create) {
             $tableName = rex_post('table_name', 'string');
             $tableLabel = rex_post('table_label', 'string');
@@ -40,6 +39,27 @@ class rex_api_yform_seeder extends rex_api_function
                 rex_response::sendContent($e->getMessage());
                 exit;
             }
+        }
+
+        $getTable = rex_get('get_table', 'bool');
+        $tableName = rex_get('table', 'string');
+
+        if ($getTable && $tableName) {
+            $table = rex_yform_manager_table::get($tableName);
+
+            if (!$table) {
+                rex_response::setStatus(rex_response::HTTP_NOT_FOUND);
+                rex_response::sendContent('Table not found!');
+                exit;
+            }
+
+            $data = [
+                'table' => $table->getTableName(),
+                'label' => $table->getName(),
+                'columns' => $table->getColumns(),
+            ];
+
+            rex_response::sendContent(json_encode($data, JSON_THROW_ON_ERROR));
         }
 
         exit;
