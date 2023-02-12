@@ -114,7 +114,7 @@ class Seeder
         $fieldCount = $sql->setQuery($query)->getRows();
 
         /** field already exists - return early */
-        if (0 === $fieldCount) {
+        if (0 !== $fieldCount) {
             return;
         }
 
@@ -159,7 +159,7 @@ class Seeder
         }
 
         /** field already exists - return early */
-        if (null !== $fieldId) {
+        if (!empty($fieldId) && null !== $fieldId) {
             return;
         }
 
