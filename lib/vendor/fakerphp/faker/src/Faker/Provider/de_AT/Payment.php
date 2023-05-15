@@ -5,7 +5,7 @@ namespace Faker\Provider\de_AT;
 class Payment extends \Faker\Provider\Payment
 {
     /**
-     * Base Added Tax (VAT)
+     * Value Added Tax (VAT)
      *
      * @example 'ATU12345678', ('spaced') 'AT U12345678'
      *

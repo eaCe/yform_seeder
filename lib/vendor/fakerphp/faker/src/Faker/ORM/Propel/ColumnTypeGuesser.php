@@ -102,7 +102,7 @@ class ColumnTypeGuesser
             case \PropelColumnTypes::OBJECT:
             case \PropelColumnTypes::PHP_ARRAY:
             default:
-            // no smart way to guess what the user expects here
+                // no smart way to guess what the user expects here
                 return null;
         }
     }

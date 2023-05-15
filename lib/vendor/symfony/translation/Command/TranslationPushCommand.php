@@ -34,8 +34,8 @@ final class TranslationPushCommand extends Command
 {
     use TranslationTrait;
 
-    private $providers;
-    private $reader;
+    private TranslationProviderCollection $providers;
+    private TranslationReaderInterface $reader;
     private array $transPaths;
     private array $enabledLocales;
 
@@ -73,9 +73,6 @@ final class TranslationPushCommand extends Command
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $keys = $this->providers->keys();
@@ -113,15 +110,12 @@ EOF
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $provider = $this->providers->get($input->getArgument('provider'));
 
         if (!$this->enabledLocales) {
-            throw new InvalidArgumentException(sprintf('You must define "framework.translator.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
+            throw new InvalidArgumentException(sprintf('You must define "framework.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
         }
 
         $io = new SymfonyStyle($input, $output);
@@ -130,16 +124,16 @@ EOF
         $force = $input->getOption('force');
         $deleteMissing = $input->getOption('delete-missing');
 
+        if (!$domains && $provider instanceof FilteringProvider) {
+            $domains = $provider->getDomains();
+        }
+
+        // Reading local translations must be done after retrieving the domains from the provider
+        // in order to manage only translations from configured domains
         $localTranslations = $this->readLocalTranslations($locales, $domains, $this->transPaths);
 
         if (!$domains) {
-            if ($provider instanceof FilteringProvider) {
-                $domains = $provider->getDomains();
-            }
-
-            if (!$domains) {
-                $domains = $this->getDomainsFromTranslatorBag($localTranslations);
-            }
+            $domains = $this->getDomainsFromTranslatorBag($localTranslations);
         }
 
         if (!$deleteMissing && $force) {

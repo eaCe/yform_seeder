@@ -21,7 +21,7 @@ class Payment extends \Faker\Provider\Payment
     }
 
     /**
-     * Base Added Tax (VAT)
+     * Value Added Tax (VAT)
      *
      * @example 'BE0123456789', ('spaced') 'BE 0123456789'
      *

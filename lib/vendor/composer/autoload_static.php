@@ -14,53 +14,53 @@ class ComposerStaticInit41fcbadf3270e482d693f20522ea36ea
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Container\\' => 14,
         ),
-        'F' =>
+        'F' => 
         array (
             'Faker\\' => 6,
         ),
-        'C' =>
+        'C' => 
         array (
             'Carbon\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Php80\\' =>
+        'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Contracts\\Translation\\' =>
+        'Symfony\\Contracts\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
-        'Symfony\\Component\\Translation\\' =>
+        'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Psr\\Container\\' =>
+        'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Faker\\' =>
+        'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Carbon\\' =>
+        'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
@@ -81,6 +81,7 @@ class ComposerStaticInit41fcbadf3270e482d693f20522ea36ea
             $loader->prefixLengthsPsr4 = ComposerStaticInit41fcbadf3270e482d693f20522ea36ea::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit41fcbadf3270e482d693f20522ea36ea::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit41fcbadf3270e482d693f20522ea36ea::$classMap;
+
         }, null, ClassLoader::class);
     }
 }
