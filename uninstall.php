@@ -2,4 +2,4 @@
 
 /** @var \rex_addon $this */
 
-rex_sql_table::get($this->getName())->drop();
+rex_sql_table::get(rex::getTable($this->getName()))->drop();
