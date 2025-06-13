@@ -2,10 +2,6 @@
 
 $addon = rex_addon::get('yform_seeder');
 
-if (\rex::isBackend()) {
-    require_once 'lib/vendor/autoload.php';
-}
-
 if (rex::isBackend() &&
     ('index.php?page=yform_seeder/gui_table' === rex_url::currentBackendPage() ||
         'index.php?page=yform_seeder/gui_seeder' === rex_url::currentBackendPage())) {
